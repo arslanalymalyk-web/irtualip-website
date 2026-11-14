@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Static page generator for the Virtual IP site. Output is plain HTML/CSS/JS at the repo root."""
 from pathlib import Path
+import re
+import shutil
 from html import escape
 
 OUT = Path(__file__).resolve().parent.parent
@@ -10,9 +12,16 @@ LINKEDIN = "https://www.linkedin.com/company/virtualip"
 
 ARROW = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg>'
 ARROW_UR = '<svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7 6h7v7"/></svg>'
-MARK = ('<svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#F4B73A"/>'
-        '<g fill="none" stroke="#10261E" stroke-width="2.2" stroke-linecap="round"><path d="M7 10c9 0 11 10 21 10"/><path d="M7 30c9 0 11-10 21-10"/><path d="M7 20h21"/></g>'
-        '<circle cx="29" cy="20" r="4" fill="#10261E"/></svg>')
+def _logo():
+    """Inline the brand-sheet logo; colours come from --logo-* tokens so one file serves light, dark and hero."""
+    svg = (Path(__file__).resolve().parent.parent / "brand/svg/logo-color.svg").read_text()
+    svg = re.sub(r' width="\d+" height="\d+"', "", svg, count=1)
+    svg = svg.replace('fill="#2F6BFF"', 'class="l-spark"', 1).replace('fill="#2F6BFF"', 'class="l-ip"')
+    svg = svg.replace('fill="#0A1330" stroke="#0A1330"', 'class="l-ink l-body"').replace('fill="#0A1330"', 'class="l-ink"')
+    return svg.replace("<svg ", '<svg class="brand__logo" aria-hidden="true" focusable="false" ', 1)
+
+
+MARK = _logo()
 
 NAV = [("services.html", "Services"), ("case-studies.html", "Case studies"), ("about.html", "About"),
        ("insights.html", "Insights"), ("careers.html", "Careers"), ("contact.html", "Contact")]
@@ -31,7 +40,7 @@ def head(title, desc, page, extra=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{t}</title>
 <meta name="description" content="{d}">
-<meta name="theme-color" content="#10261e">
+<meta name="theme-color" content="#0a1330">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Virtual IP">
 <meta property="og:title" content="{t}">
@@ -39,6 +48,8 @@ def head(title, desc, page, extra=""):
 <meta property="og:url" content="{SITE}/{'' if page == 'index.html' else page}">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
 <script>{THEME_INIT}</script>
@@ -58,7 +69,7 @@ def header(page, hero=False):
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href="index.html" aria-label="Virtual IP, home">{MARK}<span>Virtual IP</span></a>
+    <a class="brand" href="index.html" aria-label="Virtual IP, home">{MARK}</a>
     <button class="menu-btn" type="button" data-menu-btn aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></button>
     <nav class="nav" id="site-nav" aria-label="Main">
       <ul class="nav__list">{items}</ul>
@@ -85,7 +96,7 @@ def footer(scripts=""):
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a class="brand" href="index.html" aria-label="Virtual IP, home">{MARK}<span>Virtual IP</span></a>
+        <a class="brand" href="index.html" aria-label="Virtual IP, home">{MARK}</a>
         <p>Enterprise AI, cloud and software, built to hold up in production and run by people you can reach.</p>
         <div class="footer__contact">
           <a href="mailto:{EMAIL}">{EMAIL}</a>
@@ -140,7 +151,7 @@ def build_home():
     proof_li = "".join(f"<li>{p}</li>" for p in proof)
 
     svc_rows = [
-        ("cloud", "Cloud & infrastructure", "Secure, scalable environments, and migrations that cut downtime instead of causing it.", ["AWS & Azure", "Kubernetes", "DevOps"]),
+        ("cloud", "Cloud & infrastructure", "Secure, scalable environments and migrations that keep downtime low.", ["AWS & Azure", "Kubernetes", "DevOps"]),
         ("apps", "Application development", "Web, mobile and SaaS products built around real users and fast growth.", ["Web & mobile apps", "Product design", "SaaS"]),
         ("security", "Cybersecurity", "Threat detection, audits and compliance work that keeps pace as you grow.", ["Threat detection", "Compliance & governance", "Security audits"]),
         ("implementation", "Solution implementation", "ERP integration, system migration and legacy modernization with minimal disruption.", ["ERP integration", "System migration", "Legacy modernization"]),
@@ -156,13 +167,13 @@ def build_home():
         ("What should I look for in a technology consultancy for custom software?",
          "<p>Look for a team that starts from your business goal, shows working software early, is open about trade-offs and is still answering the phone after launch.</p><p>Ask who will do the work, how they handle security, and what you own at the end, including code and data.</p>"),
         ("How can AI make enterprise software more efficient?",
-         "<p>By taking on repetitive work, such as classifying documents, routing requests and flagging anomalies, and by giving people better information at the moment they decide.</p><p>The gains are largest when AI connects to your existing systems and data instead of sitting beside them.</p>"),
+         "<p>By taking on repetitive work, such as classifying documents, routing requests and flagging anomalies, and by giving people better information at the moment they decide.</p><p>The gains are largest when AI connects to your existing systems and data and your workflows.</p>"),
         ("What is cloud migration?",
          "<p>Moving applications, data and workloads from on-premises servers, or from one cloud to another, into a cloud environment. It ranges from a straight move to redesigning an application so it uses cloud-native services.</p>"),
         ("Why should I consider moving to the cloud?",
          "<p>Common reasons are scalability, resilience, faster delivery and paying for what you use. It also makes AI services easier to adopt.</p><p>Not every workload belongs in the cloud, so we assess each one on its merits.</p>"),
         ("How long does cloud migration take?",
-         "<p>It depends on how many applications you have, how tangled their dependencies are and how much you want to change along the way. We size it after an assessment instead of quoting a number up front.</p>"),
+         "<p>It depends on how many applications you have, how tangled their dependencies are and how much you want to change along the way. We size it after an assessment and give a number only then.</p>"),
         ("How does cloud migration affect data security?",
          "<p>Done well, it improves it. Encryption, identity controls, logging and automated compliance checks are easier to apply consistently.</p><p>The risk sits in the move itself, so we plan access, data handling and rollback before anything shifts.</p>"),
         ("How do you protect our data when building AI?",
@@ -173,7 +184,7 @@ def build_home():
     faq_html = "".join(f'<details><summary>{q}</summary><div class="faq__a">{a}</div></details>' for q, a in faqs)
 
     why = [
-        ("AI experts", "Engineers who build production systems, not just models: clean data pipelines, real use cases and measurable impact."),
+        ("AI experts", "Engineers who build production systems: clean data pipelines, real use cases and measurable impact."),
         ("Product mindset", "Every build starts from real users and a clear business goal, so it keeps paying off long after launch."),
         ("Delivery discipline", "Short, focused cycles keep work on track, lower risk and protect quality from planning to production."),
         ("Industry depth", "We know the rules and realities of fintech, healthcare and logistics, so solutions fit inside real-world limits from day one."),
@@ -224,7 +235,7 @@ def build_home():
     <article class="service-feature">
       <h3>AI &amp; data innovation</h3>
       <p>Enterprise AI that automates tasks, sharpens daily decisions and connects to the systems and data you already have.</p>
-      <svg class="service-feature__art" viewBox="0 0 400 220" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".55"><path d="M0 10 C 140 10, 210 110, 322 110"/><path d="M0 40 C 140 40, 210 110, 322 110"/><path d="M0 70 C 140 70, 210 110, 322 110"/><path d="M0 100 C 140 100, 210 110, 322 110"/><path d="M0 130 C 140 130, 210 110, 322 110"/><path d="M0 160 C 140 160, 210 110, 322 110"/><path d="M0 190 C 140 190, 210 110, 322 110"/><path d="M0 210 C 140 210, 210 110, 322 110"/></g><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".55"><path d="M338 110 C 360 110, 380 90, 400 70"/><path d="M338 110 C 360 110, 380 130, 400 150"/><path d="M338 110 H400"/></g><circle cx="330" cy="110" r="14" fill="#F4B73A" opacity=".35"/><circle cx="330" cy="110" r="6" fill="#F4B73A"/></svg>
+      <svg class="service-feature__art" viewBox="0 0 400 220" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".55"><path d="M0 10 C 140 10, 210 110, 322 110"/><path d="M0 40 C 140 40, 210 110, 322 110"/><path d="M0 70 C 140 70, 210 110, 322 110"/><path d="M0 100 C 140 100, 210 110, 322 110"/><path d="M0 130 C 140 130, 210 110, 322 110"/><path d="M0 160 C 140 160, 210 110, 322 110"/><path d="M0 190 C 140 190, 210 110, 322 110"/><path d="M0 210 C 140 210, 210 110, 322 110"/></g><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".55"><path d="M338 110 C 360 110, 380 90, 400 70"/><path d="M338 110 C 360 110, 380 130, 400 150"/><path d="M338 110 H400"/></g><circle cx="330" cy="110" r="14" fill="#2f6bff" opacity=".35"/><circle cx="330" cy="110" r="6" fill="#2f6bff"/></svg>
       <ul class="chips" aria-label="Includes"><li class="chip">Machine learning &amp; MLOps</li><li class="chip">Data engineering</li><li class="chip">AI automation</li></ul>
       <a class="text-link" href="services.html#ai-data">See AI &amp; data services {ARROW}</a>
     </article>
@@ -282,7 +293,7 @@ def build_home():
 </div></section>
 
 <section class="section" aria-labelledby="why-title"><div class="container why">
-  <div class="why__intro"><h2 id="why-title">Built for real results, not just prototypes.</h2>
+  <div class="why__intro"><h2 id="why-title">Built to deliver results in production.</h2>
     <p class="lede">We'd rather ship a smaller thing that works than present a bigger thing that doesn't.</p>
     <a class="btn btn--ghost" href="about.html" style="justify-self:start">About Virtual IP</a></div>
   <div class="why__list">{why_html}</div>
@@ -680,11 +691,14 @@ def build_legal():
         write(f, h)
 
 
+def copy_favicons():
+    (OUT / "assets/img").mkdir(parents=True, exist_ok=True)
+    for f in ("favicon.svg", "favicon.ico", "apple-touch-icon.png", "favicon-32.png", "favicon-192.png"):
+        shutil.copy(OUT / "brand/favicon" / f, OUT / "assets/img" / f)
+
+
 if __name__ == "__main__":
     (OUT / "assets/img").mkdir(parents=True, exist_ok=True)
-    (OUT / "assets/img/favicon.svg").write_text(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="#F4B73A"/>'
-        '<g fill="none" stroke="#10261E" stroke-width="2.2" stroke-linecap="round"><path d="M7 10c9 0 11 10 21 10"/><path d="M7 30c9 0 11-10 21-10"/><path d="M7 20h21"/></g>'
-        '<circle cx="29" cy="20" r="4" fill="#10261E"/></svg>', encoding="utf-8")
+    copy_favicons()
     build_home(); build_services(); build_cases(); build_about(); build_insights(); build_team(); build_careers(); build_contact(); build_legal()
     print("built", len(list(OUT.glob("*.html"))), "pages")

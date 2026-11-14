@@ -1,6 +1,7 @@
 /* ==========================================================================
    Virtual IP — design tokens
-   Direction: warm, human-AI. Forest ink, marigold, blush.
+   Direction: human-AI, from the brand sheet. Midnight #0A1330, electric blue #2F6BFF, sky #8FB0FF (dark only),
+   dark-mode blue #5B8CFF, mist #F3F6FF.
    Light is the default; dark follows the system or the manual toggle
    (html[data-theme="light" | "dark"]). Contrast checked for AA in both.
    ========================================================================== */
@@ -20,38 +21,39 @@
 
 :root {
   /* Raw palette */
-  --forest-950: #091510;
-  --forest-900: #10261e;
-  --forest-800: #1b3a2e;
-  --forest-700: #2b5442;
-  --moss-500: #2f6b50;
-  --mint-300: #8fd3b1;
-  --blush-200: #f5d9cc;
-  --blush-100: #fbebe3;
-  --marigold-400: #f4b73a;
-  --marigold-300: #f8cc6c;
-  --paper: #f8f6f2;
+  --midnight-950: #060b1f;
+  --midnight-900: #0a1330;
+  --midnight-800: #14214d;
+  --midnight-700: #26397a;
+  --blue-500: #2456d6;
+  --sky-300: #8fb0ff;
+  --mist-200: #dbe5ff;
+  --mist-100: #ecf1ff;
+  --electric-400: #2f6bff;
+  --electric-300: #9db9ff;
+  --paper: #f3f6ff;
 
   /* Semantic — light */
   --bg: var(--paper);
-  --bg-alt: #f1ece6;
+  --bg-alt: #e9efff;
   --surface: #ffffff;
-  --ink: var(--forest-900);
-  --ink-2: #405a4e;
-  --line: rgba(16, 38, 30, 0.14);
-  --line-strong: rgba(16, 38, 30, 0.3);
-  --link: #1d6648;
-  --panel-warm: var(--blush-200);
-  --panel-warm-ink: var(--forest-900);
-  --panel-dark: var(--forest-900);
-  --panel-dark-ink: #f1eee8;
-  --panel-dark-ink-2: #b7c8be;
-  --accent: var(--marigold-400);
-  --accent-ink: var(--forest-900);
+  --ink: var(--midnight-900);
+  --ink-2: #3d4a6b;
+  --line: rgba(10, 19, 48, 0.14);
+  --line-strong: rgba(10, 19, 48, 0.3);
+  --link: #1d4fd1;
+  --panel-warm: var(--mist-200);
+  --panel-warm-ink: var(--midnight-900);
+  --panel-dark: var(--midnight-900);
+  --panel-dark-ink: #f3f6ff;
+  --panel-dark-ink-2: #b4c0e6;
+  --logo-ink: var(--midnight-900); --logo-spark: #2f6bff; --logo-ip: #2f6bff;
+  --accent: #2c66f8; /* electric blue, a hair deeper so white text passes 4.5:1 */
+  --accent-ink: #ffffff;
   --focus: #0b5cff;
-  --success: #1d6648;
+  --success: #1a6b46;
   --danger: #a3261b;
-  --header-bg: rgba(248, 246, 242, 0.86);
+  --header-bg: rgba(243, 246, 255, 0.86);
 
   /* Type */
   --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
@@ -95,37 +97,43 @@
 /* Dark — system preference unless the user chose light */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0b1712;
-    --bg-alt: #0f1e18;
-    --surface: #13271f;
-    --ink: #f1eee8;
-    --ink-2: #aebfb5;
-    --line: rgba(241, 238, 232, 0.14);
-    --line-strong: rgba(241, 238, 232, 0.34);
-    --link: var(--mint-300);
-    --panel-warm: #2b2320;
-    --panel-warm-ink: #f6e4db;
-    --panel-dark: #112a21;
-    --header-bg: rgba(11, 23, 18, 0.86);
+    --bg: #0a1330;
+    --bg-alt: #0d1838;
+    --surface: #111c44;
+    --ink: #f3f6ff;
+    --ink-2: #aab7e0;
+    --line: rgba(243, 246, 255, 0.14);
+    --line-strong: rgba(243, 246, 255, 0.34);
+    --link: var(--sky-300);
+    --panel-warm: #15234f;
+    --panel-warm-ink: #e3ebff;
+    --panel-dark: #0e1a40;
+    --header-bg: rgba(10, 19, 48, 0.86);
     --danger: #ff9b8f;
-    --success: var(--mint-300);
+    --success: #7fd3a8;
+    --accent: #5b8cff;
+    --logo-ink: #ffffff; --logo-spark: #5b8cff; --logo-ip: #8fb0ff;
+    --accent-ink: var(--midnight-900);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0b1712;
-  --bg-alt: #0f1e18;
-  --surface: #13271f;
-  --ink: #f1eee8;
-  --ink-2: #aebfb5;
-  --line: rgba(241, 238, 232, 0.14);
-  --line-strong: rgba(241, 238, 232, 0.34);
-  --link: var(--mint-300);
-  --panel-warm: #2b2320;
-  --panel-warm-ink: #f6e4db;
-  --panel-dark: #112a21;
-  --header-bg: rgba(11, 23, 18, 0.86);
+  --bg: #0a1330;
+  --bg-alt: #0d1838;
+  --surface: #111c44;
+  --ink: #f3f6ff;
+  --ink-2: #aab7e0;
+  --line: rgba(243, 246, 255, 0.14);
+  --line-strong: rgba(243, 246, 255, 0.34);
+  --link: var(--sky-300);
+  --panel-warm: #15234f;
+  --panel-warm-ink: #e3ebff;
+  --panel-dark: #0e1a40;
+  --header-bg: rgba(10, 19, 48, 0.86);
   --danger: #ff9b8f;
-  --success: var(--mint-300);
+  --success: #7fd3a8;
+  --accent: #5b8cff;
+  --logo-ink: #ffffff; --logo-spark: #5b8cff; --logo-ip: #8fb0ff;
+  --accent-ink: var(--midnight-900);
   color-scheme: dark;
 }

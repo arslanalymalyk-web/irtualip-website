@@ -2,7 +2,7 @@
 Everything is inline SVG/HTML in the brand palette, so it stays sharp, tiny and fully original."""
 from html import escape
 
-GOLD, FOREST, BLUSH, MOSS, MINT, PAPER = "#F4B73A", "#10261E", "#F5D9CC", "#2F6B50", "#8FD3B1", "#F8F6F2"
+GOLD, FOREST, BLUSH, MOSS, MINT, PAPER = "#2f6bff", "#0a1330", "#dbe5ff", "#2456d6", "#8fb0ff", "#f3f6ff"
 
 # ------------------------------------------------------------------ icons (24px, 1.75 stroke)
 ICON = {
@@ -98,7 +98,7 @@ def method_art(kind):
     if kind == "map":
         h += ('<g stroke="currentColor" stroke-width="1.4" opacity=".4" stroke-dasharray="3 4"><path d="M24 70 L86 34 L146 64 L212 26"/></g>'
               f'<circle cx="24" cy="70" r="7" fill="currentColor" opacity=".2"/><circle cx="86" cy="34" r="7" fill="currentColor" opacity=".35"/><circle cx="146" cy="64" r="7" fill="currentColor" opacity=".5"/><circle cx="212" cy="26" r="9" fill="{GOLD}"/>'
-              '<circle cx="212" cy="26" r="3" fill="#10261E"/>')
+              '<circle cx="212" cy="26" r="3" fill="#0a1330"/>')
     elif kind == "prove":
         h += ('<g fill="currentColor"><rect x="20" y="52" width="26" height="30" rx="6" opacity=".18"/><rect x="58" y="40" width="26" height="42" rx="6" opacity=".3"/>'
               f'<rect x="96" y="28" width="26" height="54" rx="6" opacity=".5"/></g><rect x="134" y="14" width="26" height="68" rx="6" fill="{GOLD}"/>'
@@ -106,7 +106,7 @@ def method_art(kind):
     else:
         h += ('<g stroke="currentColor" stroke-width="1.5" opacity=".5"><path d="M16 70h208"/></g>'
               f'<rect x="20" y="30" width="64" height="40" rx="10" class="m-fill"/><rect x="94" y="22" width="64" height="48" rx="10" fill="{GOLD}"/><rect x="168" y="30" width="52" height="40" rx="10" class="m-fill"/>'
-              '<g fill="currentColor" opacity=".6"><circle cx="34" cy="44" r="3"/><circle cx="182" cy="44" r="3"/></g><path d="M108 46l9 9 16-18" stroke="#10261E" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>')
+              '<g fill="currentColor" opacity=".6"><circle cx="34" cy="44" r="3"/><circle cx="182" cy="44" r="3"/></g><path d="M108 46l9 9 16-18" stroke="#0a1330" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>')
     return h + '</svg>'
 
 
@@ -214,7 +214,7 @@ def page_art(kind):
 
 
 # ------------------------------------------------------------------ abstract portrait avatars (no faces, so nobody is misrepresented)
-_TONES = [(FOREST, GOLD, BLUSH), (BLUSH, FOREST, "#fff"), (GOLD, FOREST, BLUSH), (MOSS, "#fdf7e8", MINT)]
+_TONES = [(FOREST, GOLD, BLUSH), (BLUSH, FOREST, "#fff"), (GOLD, FOREST, BLUSH), (MOSS, "#f3f6ff", MINT)]
 
 
 def avatar(i, initials):

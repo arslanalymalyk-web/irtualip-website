@@ -78,7 +78,7 @@ def build_home():
         f'<a class="tile tile--ai" href="services.html#ai-data"><div class="tile__top">{V.tile("ai", "gold")}{ARROW_UR}</div>'
         f'<h3>AI &amp; data innovation</h3><p>Enterprise AI that automates tasks, sharpens daily decisions and connects to the systems and data you already have.</p>'
         f'{V.arch_diagram()}<ul class="chips" aria-label="Includes"><li class="chip">Machine learning &amp; MLOps</li><li class="chip">Data engineering</li><li class="chip">AI automation</li></ul></a>'
-        + tl("tile--6", "services.html#cloud", "cloud", "blush", "Cloud &amp; infrastructure", "Secure, scalable environments, and migrations that cut downtime instead of causing it.", "cloud")
+        + tl("tile--6", "services.html#cloud", "cloud", "blush", "Cloud &amp; infrastructure", "Secure, scalable environments and migrations that keep downtime low.", "cloud")
         + tl("tile--6", "services.html#apps", "app", "mint", "Application development", "Web, mobile and SaaS products built around real users and fast growth.", "app")
         + tl("", "services.html#security", "shield", "gold", "Cybersecurity", "Threat detection, audits and compliance work that keeps pace as you grow.", "security")
         + tl("", "services.html#implementation", "blocks", "blush", "Solution implementation", "ERP integration, system migration and legacy modernization with minimal disruption.", "blocks")
@@ -92,7 +92,7 @@ def build_home():
         for i, (k, ic, tn, t, d, _) in enumerate(tabs))
     panels = "".join(f'<div class="tabpanel" role="tabpanel" id="panel-{k}" aria-labelledby="tab-{k}" data-reveal tabindex="0"{"" if i == 0 else ""}>{m}</div>' for i, (k, _, _, _, _, m) in enumerate(tabs))
 
-    why = [("ai", "gold", "AI experts", "Engineers who build production systems, not just models: clean data pipelines, real use cases and measurable impact."),
+    why = [("ai", "gold", "AI experts", "Engineers who build production systems: clean data pipelines, real use cases and measurable impact."),
            ("target", "blush", "Product mindset", "Every build starts from real users and a clear business goal, so it keeps paying off long after launch."),
            ("pipeline", "mint", "Delivery discipline", "Short, focused cycles keep work on track, lower risk and protect quality from planning to production."),
            ("briefcase", "gold", "Industry depth", "We know the rules and realities of fintech, healthcare and logistics, so solutions fit inside real-world limits from day one."),
@@ -110,10 +110,10 @@ def build_home():
 
     faqs = [
         ("What should I look for in a technology consultancy for custom software?", "<p>Look for a team that starts from your business goal, shows working software early, is open about trade-offs and is still answering the phone after launch.</p><p>Ask who will do the work, how they handle security, and what you own at the end, including code and data.</p>"),
-        ("How can AI make enterprise software more efficient?", "<p>By taking on repetitive work, such as classifying documents, routing requests and flagging anomalies, and by giving people better information at the moment they decide.</p><p>The gains are largest when AI connects to your existing systems and data instead of sitting beside them.</p>"),
+        ("How can AI make enterprise software more efficient?", "<p>By taking on repetitive work, such as classifying documents, routing requests and flagging anomalies, and by giving people better information at the moment they decide.</p><p>The gains are largest when AI connects to your existing systems, data and workflows.</p>"),
         ("What is cloud migration?", "<p>Moving applications, data and workloads from on-premises servers, or from one cloud to another, into a cloud environment. It ranges from a straight move to redesigning an application so it uses cloud-native services.</p>"),
         ("Why should I consider moving to the cloud?", "<p>Common reasons are scalability, resilience, faster delivery and paying for what you use. It also makes AI services easier to adopt.</p><p>Not every workload belongs in the cloud, so we assess each one on its merits.</p>"),
-        ("How long does cloud migration take?", "<p>It depends on how many applications you have, how tangled their dependencies are and how much you want to change along the way. We size it after an assessment instead of quoting a number up front.</p>"),
+        ("How long does cloud migration take?", "<p>It depends on how many applications you have, how tangled their dependencies are and how much you want to change along the way. We size it after an assessment and give a number only then.</p>"),
         ("How does cloud migration affect data security?", "<p>Done well, it improves it. Encryption, identity controls, logging and automated compliance checks are easier to apply consistently.</p><p>The risk sits in the move itself, so we plan access, data handling and rollback before anything shifts.</p>"),
         ("How do you protect our data when building AI?", "<p><span class='sample-badge'>Sample content</span> Security is part of design, build and deployment. We work under ISO 27001 and SOC 2 Type II controls, and we agree how your data is accessed, stored and used before work begins.</p>"),
         ("What happens after launch?", "<p>We can provide managed support and monitoring, or hand the system over to your team with documentation and training. We agree which at the start, so there are no surprises.</p>")]
@@ -160,7 +160,7 @@ def build_home():
 </div></section>
 
 <section class="section section--alt bg-dots" id="work" aria-labelledby="work-t"><div class="container showcase" data-tabs>
-  <div class="showcase__intro"><h2 id="work-t">See the work, not just the pitch.</h2>
+  <div class="showcase__intro"><h2 id="work-t">See the work behind the pitch.</h2>
     <p class="lede">Three kinds of interface we build for clients, drawn here as illustrations.</p>
     <div class="ftabs" role="tablist" aria-label="Product examples" aria-orientation="vertical">{tabbtn}</div></div>
   <div class="showcase__stage" data-parallax="0.02">{panels}<p class="note">Illustrative interfaces with sample data. They are not client screenshots.</p></div>
@@ -187,7 +187,7 @@ def build_home():
     <p class="lede">We understand the regulatory, operational and technical limits of the sectors we serve.</p></div>{industries()}</div></section>
 
 <section class="section section--alt" aria-labelledby="why-title"><div class="container why">
-  <div class="why__intro"><h2 id="why-title">Built for real results, not just prototypes.</h2>
+  <div class="why__intro"><h2 id="why-title">Built to deliver results in production.</h2>
     <p class="lede">We'd rather ship a smaller thing that works than present a bigger thing that doesn't.</p>
     <a class="btn btn--ghost" href="about.html" style="justify-self:start">About Virtual IP</a></div>
   <div class="why__grid" data-stagger>{why_h}</div></div></section>
@@ -412,6 +412,7 @@ def build_contact():
 
 
 if __name__ == "__main__":
+    b.copy_favicons()
     b.page_head = page_head  # legal pages pick up the new header
     build_home(); build_services(); build_cases(); build_about(); build_insights(); build_team(); build_careers(); build_contact()
     # legal pages: rebuild through build.py with the visual head/footer wired in
