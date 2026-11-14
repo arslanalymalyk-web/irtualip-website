@@ -136,3 +136,35 @@
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
 })();
+
+/* Scroll-lit statement: words light up as you read. Adapted from MotionSites web-builder (MIT). */
+(function () {
+  document.querySelectorAll(".scroll-reveal").forEach(function (el) {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    (function wrap(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (c) {
+        if (c.nodeType === 3) {
+          var f = document.createDocumentFragment();
+          c.textContent.split(/(\s+)/).forEach(function (t) {
+            if (!t) return;
+            if (/^\s+$/.test(t)) { f.appendChild(document.createTextNode(t)); return; }
+            var s = document.createElement("span"); s.className = "sp"; s.textContent = t; f.appendChild(s);
+          });
+          c.replaceWith(f);
+        } else wrap(c);
+      });
+    })(el);
+    var pieces = el.querySelectorAll(".sp"), N = pieces.length, tick = false;
+    function update() {
+      tick = false;
+      var r = el.getBoundingClientRect(), vh = innerHeight;
+      var p = Math.min(1, Math.max(0, (0.8 * vh - r.top) / (0.6 * vh + r.height)));
+      pieces.forEach(function (s, i) {
+        var a = i / N - 0.1, b = i / N + 0.05;
+        s.style.opacity = (0.2 + 0.8 * Math.min(1, Math.max(0, (p - a) / (b - a)))).toFixed(3);
+      });
+    }
+    addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener("resize", update); update();
+  });
+})();

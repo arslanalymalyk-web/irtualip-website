@@ -281,3 +281,10 @@
 /* Spotlight cards (added by main.js on fine pointers, motion allowed) */
 .spot { position: relative; isolation: isolate; }
 .spot::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1; opacity: var(--so, 0); transition: opacity 0.3s; background: radial-gradient(240px circle at var(--sx, 50%) var(--sy, 50%), color-mix(in srgb, var(--electric-400) 20%, transparent), transparent 70%); }
+
+/* Scroll-lit statement. Technique adapted from the MotionSites web-builder skill (MIT). */
+.statement { padding-block: clamp(4rem, 12vw, 9rem); }
+.scroll-reveal { max-width: 30ch; margin: 0 auto; font-size: clamp(1.6rem, 4.2vw, 3rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; color: #b4c0e6; }
+.scroll-reveal .hl { color: #fff; }
+.scroll-reveal .sp { opacity: 0.2; }
+@media (prefers-reduced-motion: reduce) { .scroll-reveal .sp { opacity: 1 !important; } }

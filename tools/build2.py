@@ -176,6 +176,10 @@ def build_home():
     <li class="method__step">{V.method_art("run")}<h3>Run it</h3><p>We take the proven system to production with security, monitoring and cost controls built in, then support it or hand it over.</p><ul><li>Production build</li><li>Monitoring and cost controls</li><li>Managed support or team handover</li></ul></li>
   </ol></div></section>
 
+<section class="section on-dark statement" aria-label="How we work"><div class="container">
+  <p class="scroll-reveal">We start with the <span class="hl">decision</span>, not the model. Then we prove it on your own data, ship it with <span class="hl">security</span> built in, and measure it against the number you chose first.</p>
+</div></section>
+
 <section class="section section--alt" aria-labelledby="cases-title"><div class="container">
   <div class="section-head"><h2 id="cases-title">Results first, then the story.</h2>
     <p class="lede"><span class="sample-badge">Sample content</span> Illustrative placeholders for this preview. Swap in approved client results before launch.</p></div>
