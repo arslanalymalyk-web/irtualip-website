@@ -168,3 +168,22 @@
     addEventListener("resize", update); update();
   });
 })();
+
+/* Blur-rise page titles. Adapted from MotionSites web-builder (MIT). */
+document.querySelectorAll(".page-head h1").forEach(function (h) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var n = 0;
+  (function wrap(node) {
+    Array.prototype.slice.call(node.childNodes).forEach(function (c) {
+      if (c.nodeType === 3) {
+        var f = document.createDocumentFragment();
+        c.textContent.split(/(\s+)/).forEach(function (t) {
+          if (!t) return;
+          if (/^\s+$/.test(t)) { f.appendChild(document.createTextNode(t)); return; }
+          var s = document.createElement("span"); s.className = "bt"; s.style.setProperty("--i", n++); s.textContent = t; f.appendChild(s);
+        });
+        c.replaceWith(f);
+      } else wrap(c);
+    });
+  })(h);
+});
