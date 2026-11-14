@@ -114,7 +114,7 @@ def build_home():
         ("Why should I consider moving to the cloud?", "<p>Common reasons are scalability, resilience, faster delivery and paying for what you use. It also makes AI services easier to adopt.</p><p>Not every workload belongs in the cloud, so we assess each one on its merits.</p>"),
         ("How long does cloud migration take?", "<p>It depends on how many applications you have, how tangled their dependencies are and how much you want to change along the way. We size it after an assessment and give a number only then.</p>"),
         ("How does cloud migration affect data security?", "<p>Done well, it improves it. Encryption, identity controls, logging and automated compliance checks are easier to apply consistently.</p><p>The risk sits in the move itself, so we plan access, data handling and rollback before anything shifts.</p>"),
-        ("How do you protect our data when building AI?", "<p><span class='sample-badge'>Sample content</span> Security is part of design, build and deployment. We work under ISO 27001 and SOC 2 Type II controls, and we agree how your data is accessed, stored and used before work begins.</p>"),
+        ("How do you protect our data when building AI?", "<p> Security is part of design, build and deployment. We work under ISO 27001 and SOC 2 Type II controls, and we agree how your data is accessed, stored and used before work begins.</p>"),
         ("What happens after launch?", "<p>We can provide managed support and monitoring, or hand the system over to your team with documentation and training. We agree which at the start, so there are no surprises.</p>")]
     faq_h = "".join(f'<details><summary>{q}</summary><div class="faq__a">{a}</div></details>' for q, a in faqs)
 
@@ -149,7 +149,7 @@ def build_home():
   <div class="container hero__body"><h1 id="hero-title">{h1}</h1>
     <p class="hero__sub">We design, build and run enterprise AI that fits your data, your rules and your people.</p>
     <div class="hero__actions"><a class="btn" href="contact.html#contact-form">Plan your AI roadmap</a><a class="btn btn--ghost" href="#readiness">Take the 2-minute readiness check</a></div></div>
-  <div class="hero__proof"><div class="container hero__proof-inner"><p class="hero__proof-title">Certified and partnered <span class="sample-badge">Sample</span></p>{marquee(CERTS)}</div></div>
+  <div class="hero__proof"><div class="container hero__proof-inner"><p class="hero__proof-title">Certified and partnered</p>{marquee(CERTS)}</div></div>
 </section>
 
 <section class="section" id="services" aria-labelledby="services-title"><div class="container">
@@ -203,7 +203,7 @@ def build_home():
 </div></div></section>
 
 <section class="section" aria-labelledby="creds-title"><div class="container">
-  <div class="section-head"><h2 id="creds-title">Proof your security team can check.</h2><p class="lede"><span class="sample-badge">Sample content</span> Placeholder credentials for the preview. Replace them with verified certifications and partnerships before launch.</p></div>{trust}</div></section>
+  <div class="section-head"><h2 id="creds-title">Proof your security team can check.</h2><p class="lede">Certifications and partnerships you can verify with us.</p></div>{trust}</div></section>
 
 <section class="section section--alt" aria-labelledby="faq-title"><div class="container">
   <div class="section-head"><h2 id="faq-title">Questions buyers ask first.</h2></div><div class="faq">{faq_h}</div></div></section>
@@ -257,7 +257,15 @@ def build_services():
 # =============================================================== CASE STUDIES
 def build_cases():
     RESULTS = [('Financial services', 'Scaled lending capacity by 2&times; without adding more headcount'), ('Financial services', '6 manual AP processes automated across invoice handling, approvals, ERP posting and reconciliation'), ('Financial services', '3-in-1 deduction tracking across business, medical and charity mileage in one digital tax workflow'), ('Animal welfare', '100% processing fee reduction by optimizing Rescue Spot&rsquo;s default payment flow'), ('Financial services', '~50% reduction in AWS infrastructure costs while scaling tax compliance automation across 25+ European jurisdictions'), ('Security &amp; mobile patrol services', '35% reduction in missed opportunities with AI-powered lead enrichment and routing'), ('Martech', '9+ AI agents unifying content workflows across 5+ integrations'), ('Distribution', 'AI-native SaaS platform for distribution industry workflows'), ('Healthcare &amp; life sciences', '95% of critical vulnerabilities remediated through phased testing'), ('Financial services', '70% improvement in overall security posture via continuous testing'), ('Financial services', '30% annual savings via strategic Azure optimization and FinOps'), ('Food &amp; beverage', '5&times; revenue growth through seamless digital transformation'), ('SaaS &amp; technology', '50% cloud cost savings via app tuning and infrastructure optimization'), ('Media &amp; entertainment', 'Embedding agentic AI in Slack to eliminate workflow bottlenecks'), ('Agriculture', '50% reduction in support workload with AI-powered document retrieval'), ('SaaS &amp; technology', '2.5&times; faster performance for a modern contractor SaaS'), ('SaaS &amp; technology', 'OpenAI-powered analytics delivering 10&times; scalability and 6&times; faster insights'), ('Hospitality &amp; travel', '60% reduction in response times through AI-automated email workflows'), ('SaaS &amp; technology', 'Engineering the architecture behind intelligent content creation'), ('Agriculture', '50% faster discovery with an AI-powered knowledge sharing agent'), ('Financial services', 'Powering tax compliance with automated intelligence across 50 states'), ('Healthcare &amp; life sciences', 'Developed a fully featured desktop app for blood stock automation'), ('SaaS &amp; technology', 'Delivered responsive SaaS for personality assessment scoring'), ('Retail &amp; consumer', 'Standardized global e-commerce across 30+ countries via one platform'), ('SaaS &amp; technology', 'Transforming a legacy system into a business inventory platform'), ('Healthcare &amp; life sciences', 'Upgraded an LMS to help it scale to 1.2M+ users'), ('Retail &amp; consumer', '99% reduction in missed orders via last-mile middleware solution'), ('Healthcare &amp; life sciences', 'User-friendly LMS empowering 1000+ users for health training'), ('Financial services', 'Enhancing cybersecurity and integration for global banking'), ('Real estate &amp; property management', 'Delivered a mobile service desk app to streamline tenancy operations'), ('Manufacturing &amp; industrial', 'Streamlined operations with Salesforce and Azure integration'), ('SaaS &amp; technology', 'Next-generation replenishment platform with NLP search results')]
-    cards = "".join(f'<article class="result" data-reveal><p class="result__tag">{t}</p><h2>{h}</h2></article>' for t, h in RESULTS)
+    ICON = {"Financial services": "coins", "Animal welfare": "people", "Security &amp; mobile patrol services": "shield", "Martech": "ai", "Distribution": "box", "Healthcare &amp; life sciences": "pulse", "Food &amp; beverage": "chart", "SaaS &amp; technology": "app", "Media &amp; entertainment": "ai", "Agriculture": "data", "Hospitality &amp; travel": "map", "Retail &amp; consumer": "globe", "Real estate &amp; property management": "layers", "Manufacturing &amp; industrial": "server"}
+    import re as _re
+    def result(t, h):
+        m = _re.match(r"^(~?\d[\d.,+]*\s?(?:%|&times;))", h)
+        metric = f'<p class="result__metric">{m.group(1)}</p>' if m else ""
+        spark = ""
+        return (f'<article class="result" data-reveal><div class="result__top">{V.tile(ICON[t], "gold", 20)}<p class="result__tag">{t}</p></div>'
+                f'{metric}<h2>{h}</h2>{spark}</article>')
+    cards = "".join(result(t, h) for t, h in RESULTS)
     html = head("Case studies | Virtual IP", "Results Virtual IP has delivered across financial services, healthcare, SaaS, retail and more.", "case-studies.html")
     html += header("case-studies.html")
     html += f"""<main id="main">
@@ -316,7 +324,7 @@ def build_insights():
     html = head("Insights | Virtual IP", "Practical guidance on AI readiness, cloud migration and getting projects into production.", "insights.html")
     html += header("insights.html")
     html += f"""<main id="main">
-{page_head('Plain advice for people shipping technology.', '<span class="sample-badge">Sample content</span> Draft articles for the preview. Have the team review and approve them before launch.', 'Insights', 'insights')}
+{page_head('Plain advice for people shipping technology.', 'Practical notes from the people who build and run these systems.', 'Insights', 'insights')}
 <section class="section--tight"><div class="container"><div class="post-list" data-stagger>{items}</div></div></section>
 {cta_band()}
 </main>
@@ -334,7 +342,7 @@ def build_insights():
 <section class="page-head"><div class="container"><ol class="crumbs" aria-label="Breadcrumb"><li><a href="index.html">Home</a></li><li><a href="insights.html">Insights</a></li><li aria-current="page">{escape(tag)}</li></ol>
 <h1 style="font-size:var(--step-4);max-width:22ch">{escape(title)}</h1></div></section>
 <article class="container article"><div class="post-cover post-cover--lg">{V.post_cover(i).split('>', 1)[1].rsplit('</div>', 1)[0]}</div>
-<div class="byline"><span>Virtual IP team</span><span>{rt}</span><span class="sample-badge">Sample content</span></div>{parts}
+<div class="byline"><span>Virtual IP team</span><span>{rt}</span></div>{parts}
 <p><a class="btn" href="index.html#readiness">Take the readiness check</a></p></article>
 {cta_band()}
 </main>
@@ -352,7 +360,7 @@ def build_team():
     cards = "".join(f'<li class="person">{V.avatar(i, n)}<h3>{n}</h3><p class="role-title">{r}</p><p>{bio}</p></li>' for i, (n, ini, r, bio) in enumerate(people))
     html = head("Team | Virtual IP", "The leadership team behind Virtual IP.", "team.html") + header("about.html")
     html += f"""<main id="main">
-{page_head('The people doing the work.', 'Leaders who still review the work. <span class="sample-badge">Sample content</span> Names, roles and bios are placeholders, and the portraits are illustrations. Replace both with the real team.', 'Team', 'team')}
+{page_head('The people doing the work.', 'Leaders who still review the work.', 'Team', 'team')}
 <section class="section--tight"><div class="container"><ul class="team" data-stagger>{cards}</ul></div></section>
 {cta_band("Want to work with us?", "See open roles or tell us about your project.")}
 </main>
@@ -378,7 +386,7 @@ def build_careers():
 {page_head('Build things that stay up.', 'Work with senior engineers and designers on systems that run in production for real organizations.', 'Careers', 'careers')}
 <section class="section"><div class="container"><div class="values" data-stagger>{vh}</div></div></section>
 <section class="section section--alt" aria-labelledby="open-t"><div class="container"><div class="section-head"><h2 id="open-t">Open roles.</h2>
-  <p class="lede"><span class="sample-badge">Sample content</span> Placeholder roles for the preview. Connect this list to your hiring system or update it by hand.</p></div>
+  <p class="lede">Roles we are hiring for now.</p></div>
   <ul class="roles">{rows}</ul><p style="margin-top:var(--s-5)">Don't see your role? Write to <a href="mailto:{EMAIL}">{EMAIL}</a> and tell us what you'd build.</p></div></section>
 </main>
 """

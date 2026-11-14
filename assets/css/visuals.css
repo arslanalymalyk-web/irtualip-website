@@ -306,3 +306,8 @@
 .result h2 { font-size: var(--step-1); line-height: 1.25; letter-spacing: -0.01em; }
 .client-names { display: flex; flex-wrap: wrap; gap: .6rem; }
 .client-names li { padding: .5rem 1rem; border: 1px solid var(--line-strong); border-radius: 999px; font-weight: 600; }
+
+.result__top { display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-4); }
+.result__top .result__tag { margin: 0; }
+.result__metric { font-family: var(--font-display); font-weight: 800; font-size: var(--step-4, 2.6rem); line-height: 1; letter-spacing: -0.03em; color: var(--accent-text, var(--accent)); margin-bottom: var(--s-3); }
+.result .spark { margin-top: var(--s-4); color: var(--accent-text, var(--accent)); opacity: .8; }

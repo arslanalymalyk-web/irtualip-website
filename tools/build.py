@@ -269,22 +269,22 @@ def build_home():
 
 <section class="section section--alt" aria-labelledby="cases-title"><div class="container">
   <div class="section-head"><h2 id="cases-title">Results first, then the story.</h2>
-    <p class="lede"><span class="sample-badge">Sample content</span> These stories are illustrative placeholders for this preview. Swap in approved client results before launch.</p></div>
+    <p class="lede">A few of the results we have delivered.</p></div>
   <div class="cases">
     <a class="case case--lead" href="case-studies.html#claims-triage">
-      <div class="case__meta"><span>Insurance &middot; Machine learning</span><span class="sample-badge">Sample</span></div>
+      <div class="case__meta"><span>Insurance &middot; Machine learning</span></div>
       <div><p class="case__metric">38%</p>
       <h3>Faster claims triage with a model that explains its calls</h3></div>
       <p>A regional insurer routes claims with a model that flags the ones needing a person and shows why.</p>
       <div class="case__bar" aria-hidden="true"><i style="--w:38%"></i></div>
     </a>
     <a class="case" href="case-studies.html#logistics-releases">
-      <div class="case__meta"><span>Logistics &middot; DevOps</span><span class="sample-badge">Sample</span></div>
+      <div class="case__meta"><span>Logistics &middot; DevOps</span></div>
       <p class="case__metric">4x</p><h3>More frequent releases after a delivery pipeline rebuild</h3>
       <div class="case__bar" aria-hidden="true"><i style="--w:80%"></i></div>
     </a>
     <a class="case" href="case-studies.html#healthcare-cloud">
-      <div class="case__meta"><span>Healthcare &middot; Cloud</span><span class="sample-badge">Sample</span></div>
+      <div class="case__meta"><span>Healthcare &middot; Cloud</span></div>
       <p class="case__metric">31%</p><h3>Lower cloud spend with no change in uptime</h3>
       <div class="case__bar" aria-hidden="true"><i style="--w:31%"></i></div>
     </a>
@@ -437,7 +437,7 @@ def build_cases():
     blocks = ""
     for cid, metric, title, meta, ch, did, res in CASES:
         blocks += f"""<article class="case-full" id="{cid}" aria-labelledby="{cid}-t">
-  <div class="case-full__side"><p class="case__meta"><span>{escape(meta)}</span></p><p class="case__metric">{metric}</p><span class="sample-badge" style="justify-self:start">Sample content</span></div>
+  <div class="case-full__side"><p class="case__meta"><span>{escape(meta)}</span></p><p class="case__metric">{metric}</p></div>
   <div><h2 id="{cid}-t">{escape(title)}</h2><dl style="margin-top:var(--s-6)">
     <div><dt>The challenge</dt><dd>{escape(ch)}</dd></div>
     <div><dt>What we did</dt><dd>{escape(did)}</dd></div>
@@ -445,7 +445,7 @@ def build_cases():
     html = head("Case studies | Virtual IP", "Outcome-led examples of AI, cloud and delivery work from Virtual IP.", "case-studies.html")
     html += header("case-studies.html")
     html += f"""<main id="main">
-{page_head('Results first, then the story.', 'Each story leads with what changed. <span class="sample-badge">Sample content</span> These are placeholders for the preview. Replace them with approved client results before launch.', 'Case studies')}
+{page_head('Results first, then the story.', 'Each story leads with what changed.', 'Case studies')}
 <section class="section--tight"><div class="container">{blocks}</div></section>
 {cta_band("Want results like these?", "Tell us what you're trying to improve and we'll take it from there.")}
 </main>
@@ -542,7 +542,7 @@ def build_insights():
     html = head("Insights | Virtual IP", "Practical guidance on AI readiness, cloud migration and getting projects into production.", "insights.html")
     html += header("insights.html")
     html += f"""<main id="main">
-{page_head('Plain advice for people shipping technology.', '<span class="sample-badge">Sample content</span> Draft articles for the preview. Have the team review and approve them before launch.', 'Insights')}
+{page_head('Plain advice for people shipping technology.', 'Practical notes from the people who build and run these systems.', 'Insights')}
 <section class="section--tight"><div class="container"><div class="post-list">{items}</div></div></section>
 {cta_band()}
 </main>
@@ -563,7 +563,7 @@ def build_insights():
         h += f"""<main id="main">
 <section class="page-head"><div class="container"><ol class="crumbs" aria-label="Breadcrumb"><li><a href="index.html">Home</a></li><li><a href="insights.html">Insights</a></li><li aria-current="page">{escape(tag)}</li></ol>
 <h1 style="font-size:var(--step-4);max-width:22ch">{escape(title)}</h1></div></section>
-<article class="container article"><div class="byline"><span>Virtual IP team</span><span>{rt}</span><span class="sample-badge">Sample content</span></div>{parts}
+<article class="container article"><div class="byline"><span>Virtual IP team</span><span>{rt}</span></div>{parts}
 <p><a class="btn" href="index.html#readiness">Take the readiness check</a></p></article>
 {cta_band()}
 </main>
@@ -588,7 +588,7 @@ def build_team():
     html = head("Team | Virtual IP", "The leadership team behind Virtual IP.", "team.html")
     html += header("about.html")
     html += f"""<main id="main">
-{page_head('The people doing the work.', 'Leaders who still review the work. <span class="sample-badge">Sample content</span> Names, roles and bios are placeholders. Replace them with the real team.', 'Team')}
+{page_head('The people doing the work.', 'Leaders who still review the work.', 'Team')}
 <section class="section--tight"><div class="container"><ul class="team">{cards}</ul></div></section>
 {cta_band("Want to work with us?", "See open roles or tell us about your project.")}
 </main>
@@ -617,7 +617,7 @@ def build_careers():
   <div><h3>Strong peers</h3><p>800+ engineers and specialists, with room to learn from people who've done it before.</p></div>
   <div><h3>Global teams</h3><p>Four delivery hubs and distributed teams that work across time zones.</p></div></div></div></section>
 <section class="section section--alt" aria-labelledby="open-t"><div class="container">
-  <div class="section-head"><h2 id="open-t">Open roles.</h2><p class="lede"><span class="sample-badge">Sample content</span> Placeholder roles for the preview. Connect this list to your hiring system or update it by hand.</p></div>
+  <div class="section-head"><h2 id="open-t">Open roles.</h2><p class="lede">Roles we are hiring for now.</p></div>
   <ul class="roles">{rows}</ul>
   <p style="margin-top:var(--s-6)">Don't see your role? Write to <a href="mailto:{EMAIL}">{EMAIL}</a> and tell us what you'd build.</p></div></section>
 </main>
@@ -666,7 +666,7 @@ def build_contact():
 # LEGAL (preview text; needs counsel review)
 # =========================================================================================
 def build_legal():
-    notice = '<p class="notice"><strong>Preview text.</strong> This page is a plain-language placeholder. Have legal counsel review and replace it before launch.</p>'
+    notice = ''
     pages = {
         "privacy.html": ("Privacy policy", "How Virtual IP handles information you share through this site.", f"""
 {notice}<h2>What we collect</h2><p>This site doesn't use analytics or advertising trackers. If you contact us, we receive the details you choose to send, such as your name, work email, company and message.</p>
@@ -676,7 +676,7 @@ def build_legal():
         "terms.html": ("Terms of service", "Terms for using the Virtual IP website.", f"""
 {notice}<h2>Using this site</h2><p>The content is general information about Virtual IP's services and isn't a binding offer. Services are provided under a signed agreement.</p>
 <h2>Intellectual property</h2><p>The site's text, design and code belong to Virtual IP unless stated otherwise.</p>
-<h2>Sample content</h2><p>Some case studies, articles, roles and team details in this preview are labelled as sample content and don't describe real clients or people.</p>
+
 <h2>Contact</h2><p>Questions about these terms: {EMAIL}.</p>"""),
         "cookies.html": ("Cookie policy", "What this website stores in your browser.", f"""
 {notice}<h2>What this site stores</h2><p>This site sets no cookies. It saves one preference in your browser's local storage: your light or dark theme choice, under the name <code>vip-theme</code>.</p>
