@@ -299,3 +299,10 @@
 @property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 @keyframes ring { to { --ang: 360deg; } }
 @media (prefers-reduced-motion: reduce) { .page-head h1 .bt { opacity: 1; filter: none; transform: none; animation: none; } .hero .btn:not(.btn--ghost)::after { animation: none; } }
+
+.results { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: var(--s-4); }
+.result { padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-lg, 1rem); background: var(--surface, transparent); }
+.result__tag { font-size: .85rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-text, var(--accent)); margin-bottom: var(--s-3); }
+.result h2 { font-size: var(--step-1); line-height: 1.25; letter-spacing: -0.01em; }
+.client-names { display: flex; flex-wrap: wrap; gap: .6rem; }
+.client-names li { padding: .5rem 1rem; border: 1px solid var(--line-strong); border-radius: 999px; font-weight: 600; }

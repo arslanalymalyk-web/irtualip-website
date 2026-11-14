@@ -34,14 +34,13 @@ cta_band = lambda *a, **k: b.cta_band(*a, **k).replace('class="cta-band on-dark"
 
 def stats_block():
     return """<section class="section on-dark has-rings" aria-labelledby="stats-title"><div class="container">
-  <div class="stats-intro"><h2 id="stats-title">More than seventeen years of building systems that stay up.</h2>
+  <div class="stats-intro"><h2 id="stats-title">Eighteen years and counting of building systems that stay up.</h2>
     <a class="btn btn--ghost" href="about.html">How we work</a></div>
-  <p class="stats-note"><span class="sample-badge">Sample content</span> Placeholder figures for the preview. Replace them with verified numbers before launch.</p>
   <div class="stats">
-    <div class="stat"><p class="stat__num"><span data-count="17">17</span><small>+</small></p><p class="stat__label">Years building digital solutions</p></div>
-    <div class="stat"><p class="stat__num"><span data-count="800">800</span><small>+</small></p><p class="stat__label">Engineers and specialists</p></div>
-    <div class="stat"><p class="stat__num"><span data-count="73">73</span><small>%</small></p><p class="stat__label">Client retention</p></div>
-    <div class="stat"><p class="stat__num"><span data-count="4">4</span></p><p class="stat__label">Global delivery hubs</p></div>
+    <div class="stat"><p class="stat__num"><span data-count="18">18</span><small>+</small></p><p class="stat__label">Years in business</p></div>
+    <div class="stat"><p class="stat__num"><span data-count="800">800</span><small>+</small></p><p class="stat__label">Professionals on board</p></div>
+    <div class="stat"><p class="stat__num"><span data-count="73">73</span><small>%</small></p><p class="stat__label">Of clients return for long-term partnerships</p></div>
+    <div class="stat"><p class="stat__num"><span data-count="10">10</span><small>+</small></p><p class="stat__label">Years launching and building AI products</p></div>
   </div></div></section>"""
 
 
@@ -123,13 +122,13 @@ def build_home():
            '"description":"Enterprise AI, cloud, application development and cybersecurity services."}') % (SITE, EMAIL, LINKEDIN)
 
     def case_card(cls, cid, meta, metric, title, ba, p=""):
-        return (f'<a class="case {cls}" href="case-studies.html#{cid}" data-reveal><div class="case__meta"><span>{meta}</span><span class="sample-badge">Sample</span></div>'
+        return (f'<a class="case {cls}" href="case-studies.html" data-reveal><div class="case__meta"><span>{meta}</span></div>'
                 f'<p class="case__metric">{metric}</p><h3>{title}</h3>{p}{ba}</a>')
 
-    cases = (case_card("case--lead", "claims-triage", "Insurance &middot; Machine learning", "38%", "Faster claims triage with a model that explains its calls",
-                       V.before_after(100, 62, "Triage time (index)"), "<p>A regional insurer routes claims with a model that flags the ones needing a person and shows why.</p>" + '<div class="case__trend">' + V.area_chart([100, 98, 95, 90, 84, 76, 70, 66, 63, 62], 520, 120, "lead") + '<span>Weekly triage time, illustrative</span></div>')
-             + case_card("", "logistics-releases", "Logistics &middot; DevOps", "4x", "More frequent releases after a pipeline rebuild", V.before_after(1, 4, "Release frequency", unit="x"))
-             + case_card("", "healthcare-cloud", "Healthcare &middot; Cloud", "31%", "Lower cloud spend with no change in uptime", V.before_after(100, 69, "Cloud spend (index)")))
+    cases = (case_card("case--lead", "supreme-lending", "Financial services", "2&times;", "Scaled lending capacity without adding headcount",
+                       V.before_after(1, 2, "Lending capacity", unit="x"))
+             + case_card("", "fintua", "Financial services", "~50%", "Lower AWS infrastructure costs while scaling tax compliance automation across 25+ European jurisdictions", V.before_after(100, 50, "AWS cost (index)"))
+             + case_card("", "canvs-ai", "SaaS &amp; technology", "10&times;", "OpenAI-powered analytics: 10&times; scalability and 6&times; faster insights", V.before_after(1, 10, "Scalability", unit="x")))
 
     html = head("Virtual IP | Enterprise AI, cloud and software that holds up in production",
                 "Virtual IP designs, builds and runs enterprise AI, cloud, application and security systems that fit your data, your rules and your people.",
@@ -182,7 +181,7 @@ def build_home():
 
 <section class="section section--alt" aria-labelledby="cases-title"><div class="container">
   <div class="section-head"><h2 id="cases-title">Results first, then the story.</h2>
-    <p class="lede"><span class="sample-badge">Sample content</span> Illustrative placeholders for this preview. Swap in approved client results before launch.</p></div>
+    <p class="lede">A few of the results we have delivered across industries.</p></div>
   <div class="cases" data-stagger>{cases}</div>
   <p style="margin-top:var(--s-5)"><a class="text-link" href="case-studies.html">Read all case studies {ARROW}</a></p></div></section>
 
@@ -257,24 +256,13 @@ def build_services():
 
 # =============================================================== CASE STUDIES
 def build_cases():
-    charts = {"claims-triage": (V.before_after(100, 62, "Triage time (index)"), V.area_chart([100, 98, 95, 90, 84, 76, 70, 66, 63, 62], 520, 130, "c1"), "Weekly triage time, index"),
-              "logistics-releases": (V.before_after(1, 4, "Release frequency", unit="x"), V.bars([1, 1, 2, 2, 2, 3, 3, 4, 4, 4], 520, 120), "Releases per period"),
-              "healthcare-cloud": (V.before_after(100, 69, "Cloud spend (index)"), V.area_chart([100, 104, 103, 98, 92, 84, 78, 73, 70, 69], 520, 130, "c3"), "Monthly cloud spend, index"),
-              "fintech-fraud": (V.before_after(100, 38, "False alerts (index)"), V.bars([100, 96, 88, 74, 60, 52, 46, 42, 40, 38], 520, 120, 9), "False alerts, index")}
-    icons = {"claims-triage": "ai", "logistics-releases": "pipeline", "healthcare-cloud": "cloud", "fintech-fraud": "coins"}
-    blocks = ""
-    for cid, metric, title, meta, ch, did, res in CASES:
-        ba, ch_svg, cap = charts[cid]
-        blocks += f"""<article class="case-full" id="{cid}" aria-labelledby="{cid}-t" data-reveal>
-  <div class="case-full__side">{V.tile(icons[cid], "gold")}<p class="case__meta"><span>{escape(meta)}</span></p><p class="case__metric">{metric}</p><span class="sample-badge" style="justify-self:start">Sample content</span></div>
-  <div><h2 id="{cid}-t">{escape(title)}</h2>
-  <div class="case-full__charts">{ba}<div class="mock-chart"><div class="mock__head"><strong>{cap}</strong><span>Illustrative</span></div>{ch_svg}</div></div>
-  <dl style="margin-top:var(--s-5)"><div><dt>The challenge</dt><dd>{escape(ch)}</dd></div><div><dt>What we did</dt><dd>{escape(did)}</dd></div><div><dt>The result</dt><dd>{escape(res)}</dd></div></dl></div></article>"""
-    html = head("Case studies | Virtual IP", "Outcome-led examples of AI, cloud and delivery work from Virtual IP.", "case-studies.html")
+    RESULTS = [('Financial services', 'Scaled lending capacity by 2&times; without adding more headcount'), ('Financial services', '6 manual AP processes automated across invoice handling, approvals, ERP posting and reconciliation'), ('Financial services', '3-in-1 deduction tracking across business, medical and charity mileage in one digital tax workflow'), ('Animal welfare', '100% processing fee reduction by optimizing Rescue Spot&rsquo;s default payment flow'), ('Financial services', '~50% reduction in AWS infrastructure costs while scaling tax compliance automation across 25+ European jurisdictions'), ('Security &amp; mobile patrol services', '35% reduction in missed opportunities with AI-powered lead enrichment and routing'), ('Martech', '9+ AI agents unifying content workflows across 5+ integrations'), ('Distribution', 'AI-native SaaS platform for distribution industry workflows'), ('Healthcare &amp; life sciences', '95% of critical vulnerabilities remediated through phased testing'), ('Financial services', '70% improvement in overall security posture via continuous testing'), ('Financial services', '30% annual savings via strategic Azure optimization and FinOps'), ('Food &amp; beverage', '5&times; revenue growth through seamless digital transformation'), ('SaaS &amp; technology', '50% cloud cost savings via app tuning and infrastructure optimization'), ('Media &amp; entertainment', 'Embedding agentic AI in Slack to eliminate workflow bottlenecks'), ('Agriculture', '50% reduction in support workload with AI-powered document retrieval'), ('SaaS &amp; technology', '2.5&times; faster performance for a modern contractor SaaS'), ('SaaS &amp; technology', 'OpenAI-powered analytics delivering 10&times; scalability and 6&times; faster insights'), ('Hospitality &amp; travel', '60% reduction in response times through AI-automated email workflows'), ('SaaS &amp; technology', 'Engineering the architecture behind intelligent content creation'), ('Agriculture', '50% faster discovery with an AI-powered knowledge sharing agent'), ('Financial services', 'Powering tax compliance with automated intelligence across 50 states'), ('Healthcare &amp; life sciences', 'Developed a fully featured desktop app for blood stock automation'), ('SaaS &amp; technology', 'Delivered responsive SaaS for personality assessment scoring'), ('Retail &amp; consumer', 'Standardized global e-commerce across 30+ countries via one platform'), ('SaaS &amp; technology', 'Transforming a legacy system into a business inventory platform'), ('Healthcare &amp; life sciences', 'Upgraded an LMS to help it scale to 1.2M+ users'), ('Retail &amp; consumer', '99% reduction in missed orders via last-mile middleware solution'), ('Healthcare &amp; life sciences', 'User-friendly LMS empowering 1000+ users for health training'), ('Financial services', 'Enhancing cybersecurity and integration for global banking'), ('Real estate &amp; property management', 'Delivered a mobile service desk app to streamline tenancy operations'), ('Manufacturing &amp; industrial', 'Streamlined operations with Salesforce and Azure integration'), ('SaaS &amp; technology', 'Next-generation replenishment platform with NLP search results')]
+    cards = "".join(f'<article class="result" data-reveal><p class="result__tag">{t}</p><h2>{h}</h2></article>' for t, h in RESULTS)
+    html = head("Case studies | Virtual IP", "Results Virtual IP has delivered across financial services, healthcare, SaaS, retail and more.", "case-studies.html")
     html += header("case-studies.html")
     html += f"""<main id="main">
-{page_head('Results first, then the story.', 'Each story leads with what changed. <span class="sample-badge">Sample content</span> Placeholders for the preview. Replace them with approved client results before launch.', 'Case studies', 'cases')}
-<section class="section--tight"><div class="container">{blocks}</div></section>
+{page_head('Results we have delivered across industries.', 'Each line leads with what changed for the client.', 'Case studies', 'cases')}
+<section class="section--tight"><div class="container"><div class="results">{cards}</div></div></section>
 {cta_band("Want results like these?", "Tell us what you're trying to improve and we'll take it from there.")}
 </main>
 """
@@ -283,20 +271,29 @@ def build_cases():
 
 
 # =============================================================== ABOUT
+CLIENTS = ["Canvs", "Live More", "Signal", "Knowles", "Groupon", "Sterne", "ABB", "Pendulum", "Crowd Biotic", "Adventise Risk", "Lumatax", "Sway", "Southern Biologics", "Oserison", "Union Marlee", "Futureprenure", "BBJ", "Centereys", "Profitoptics"]
+
+
 def build_about():
     vals = [("bolt", "gold", "Ship what works", "We prefer a smaller system in production over a bigger one in a slide deck, and we measure every build against a baseline."),
             ("eye", "blush", "Say the trade-off out loud", "Every option costs something in time, money or risk. We name it early so you can choose with open eyes."),
             ("layers", "mint", "Build it to last", "Security, monitoring and documentation are part of the first release, so the system is easy to run and easy to hand over.")]
     vh = "".join(f"<div>{V.tile(i, t, 20)}<h3 style='margin-top:var(--s-3)'>{h}</h3><p>{p}</p></div>" for i, t, h, p in vals)
-    html = head("About | Virtual IP", "Virtual IP is a technology partner with more than 17 years of experience, 800+ engineers and specialists and four global delivery hubs.", "about.html")
+    html = head("About | Virtual IP", "Virtual IP is a technology partner with 18 years in business, 800+ professionals and 10+ years of launching and building AI products.", "about.html")
     html += header("about.html")
     html += f"""<main id="main">
 {page_head('We build the systems behind your decisions.', 'Virtual IP is a technology partner for teams that need AI, cloud and software to work in the real world, not only in a demo.', 'About', 'about')}
 <section class="section"><div class="container split">
   <h2>Practical execution, measurable impact, long-term reliability.</h2>
-  <div class="prose"><p><span class="sample-badge">Sample content</span> The figures and credentials on this page are placeholders until verified.</p><p>For more than seventeen years we have built digital systems for organizations in fintech, healthcare, logistics and beyond. Today more than 800 engineers and specialists work across four global delivery hubs.</p>
-    <p><strong>We focus on what ships.</strong> That means clear scope, short cycles, honest trade-offs and security from the first design decision. It also means staying involved after launch, which is part of why 73% of clients stay with us.</p>
-    <p>We're an ISO 27001 certified, SOC 2 Type II audited partner of AWS, Microsoft and Google Cloud, and a member of the Forbes Technology Council.</p></div></div></section>
+  <div class="prose"><p>We&rsquo;re an AI-first engineering partner helping organizations design, build and scale intelligent systems that deliver lasting business value.</p>
+    <p>Virtual IP was founded with a simple belief. As digital systems grew more interconnected and data-driven, organizations needed more than individual solutions. They needed platforms and operating models that could evolve.</p>
+    <p><strong>Our mission</strong> is to help leaders build systems that last. For over eighteen years we have partnered with enterprises, SMBs and product-led businesses to solve complex challenges through software engineering, and 73% of our clients return for long-term partnerships.</p>
+    <p>Our partnerships with OpenAI and Anthropic help us deliver production-ready AI solutions, alongside our work with AWS, Microsoft and Salesforce.</p></div></div></section>
+<section class="section section--alt" aria-labelledby="trust-by"><div class="container"><div class="section-head"><h2 id="trust-by">Trusted by hundreds of organizations.</h2></div>
+  <ul class="client-names">{"".join(f"<li>{n}</li>" for n in CLIENTS)}</ul></div></section>
+<section class="section" aria-labelledby="ai-first"><div class="container split"><h2 id="ai-first">AI-first, built with responsibility.</h2>
+  <div class="prose"><p>Being AI-first does not mean adding AI everywhere. It means applying intelligence where it improves decisions, reduces friction and strengthens systems over time.</p>
+    <p>We embed AI into products, platforms and operations in ways that are governed, secure and aligned to business readiness, from early strategy and validation to production grade. Our role is to help organizations get the balance right.</p></div></div></section>
 {stats_block()}
 <section class="section" aria-labelledby="val-t"><div class="container"><div class="section-head"><h2 id="val-t">How we work.</h2></div><div class="values" data-stagger>{vh}</div></div></section>
 <section class="section section--alt" aria-labelledby="ind-t"><div class="container"><div class="section-head"><h2 id="ind-t">Industries where the rules are real.</h2>
@@ -373,8 +370,8 @@ def build_careers():
         subj = escape(f"Application: {t}").replace(" ", "%20").replace(":", "%3A")
         rows += (f'<li class="role">{V.tile(ic, tn, 20)}<div><h3>{t}</h3><p>{d}</p></div><p class="role__meta">{team}</p>'
                  f'<a class="btn btn--ghost btn--sm" href="mailto:{EMAIL}?subject={subj}">Apply by email<span class="sr-only"> for {escape(t)}</span></a></li>')
-    vals = [("target", "gold", "Real problems", "Projects span fintech, healthcare and logistics, with real users and real constraints."), ("people", "blush", "Strong peers", "800+ engineers and specialists, with room to learn from people who've done it before."),
-            ("globe", "mint", "Global teams", "Four delivery hubs and distributed teams that work across time zones.")]
+    vals = [("target", "gold", "Real problems", "Projects span fintech, healthcare and logistics, with real users and real constraints."), ("people", "blush", "Strong peers", "800+ professionals, with room to learn from people who've done it before."),
+            ("globe", "mint", "Global teams", "Distributed teams that work across time zones.")]
     vh = "".join(f"<div>{V.tile(i, t, 20)}<h3 style='margin-top:var(--s-3)'>{h}</h3><p>{p}</p></div>" for i, t, h, p in vals)
     html = head("Careers | Virtual IP", "Join Virtual IP and build AI, cloud and software that stay up.", "careers.html") + header("careers.html")
     html += f"""<main id="main">
