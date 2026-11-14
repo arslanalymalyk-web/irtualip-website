@@ -272,3 +272,8 @@
 .case__trend { margin: var(--s-5) 0 var(--s-4); color: #f4b73a; }
 .case__trend svg { width: 100%; height: auto; display: block; }
 .case__trend span { display: block; margin-top: 0.4rem; font-size: 0.82rem; opacity: 0.7; color: #f1eee8; }
+
+/* ui-ux-pro-max pre-delivery checks: 44px targets, pointer cursor on clickable controls */
+.btn--sm { min-height: 2.75rem; }
+.btn, .ftab, summary, .theme-toggle, .quiz__option label, [role="tab"] { cursor: pointer; }
+.ftab { min-height: 2.75rem; }
