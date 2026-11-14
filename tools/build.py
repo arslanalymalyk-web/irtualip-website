@@ -117,6 +117,8 @@ def footer(scripts=""):
   </div>
 </footer>
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/i18n.js" defer></script>
+<script src="assets/js/chat.js" defer></script>
 {scripts}</body>
 </html>
 """
