@@ -9,12 +9,10 @@ Plain HTML/CSS/JS, no build step to run the site. Open `index.html` or serve the
 
 To add Motion's skills to your AI agent, run `npx motion-ai` in a terminal from this folder.
 
-## Optional: Ponytail hooks
+## Ponytail (active in this project)
 
-The six Ponytail skills are committed under `.claude/skills/`. Its lifecycle hooks (mode tracking, optional task ledger) ship only with the plugin and are not enabled here. This repo registers the Ponytail marketplace, so in Claude Code you can run:
+Claude Code hooks in `.claude/settings.json` load Ponytail's "lazy senior dev" mode at session start, track `/ponytail lite|full|ultra|off`, and pass the mode to subagents. The scripts live in `.claude/ponytail/` and need `node` on your PATH. They run from `$CLAUDE_PROJECT_DIR`, so no plugin install is needed. The six skills are in `.claude/skills/ponytail*`.
 
-```
-/plugin install ponytail@ponytail
-```
+Not included: the task-board band and webhook ledger. Those ship only with the plugin (`/plugin install ponytail@ponytail`, marketplace already registered). Do not install the plugin too, or the hooks run twice.
 
-Review what the hooks do first: they run Node scripts each turn and write a usage log under `~/.config/ponytail/`. Installing the plugin as well as the committed skills duplicates them.
+The scripts keep their mode flag and a statusline script copy in `~/.claude/`.
