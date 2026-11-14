@@ -188,7 +188,7 @@ document.querySelectorAll(".page-head h1").forEach(function (h) {
   })(h);
 });
 
-/* Ask Virtual IP: a small rule-based assistant. No server, no tracking; answers come from the site's own content. */
+/* Ask your Partner: a small rule-based assistant. No server, no tracking; answers come from the site's own content. */
 (function () {
   var mail = document.querySelector('a[href^="mailto:"]'); var email = mail ? mail.getAttribute("href").replace("mailto:", "").split("?")[0] : "";
   var KB = [
@@ -207,8 +207,8 @@ document.querySelectorAll(".page-head h1").forEach(function (h) {
   var FALLBACK = "I do not have a good answer for that. Our team will, so please write to us.";
   var CHIPS = ["What do you offer?", "How can we work together?", "Are you certified?", "Show me results", "Where do we start?"];
   var wrap = document.createElement("div"); wrap.className = "chat";
-  wrap.innerHTML = '<button class="chat__fab" type="button" aria-expanded="false" aria-controls="chat-panel"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5z"/></svg><span>Ask us</span></button>' +
-    '<section class="chat__panel" id="chat-panel" role="dialog" aria-label="Ask Virtual IP" hidden><header><strong>Ask Virtual IP</strong><button type="button" class="chat__close" aria-label="Close chat">&times;</button></header>' +
+  wrap.innerHTML = '<button class="chat__fab" type="button" aria-expanded="false" aria-controls="chat-panel"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5z"/></svg><span>Ask your Partner</span></button>' +
+    '<section class="chat__panel" id="chat-panel" role="dialog" aria-label="Ask your Partner" hidden><header><strong>Ask your Partner</strong><button type="button" class="chat__close" aria-label="Close chat">&times;</button></header>' +
     '<div class="chat__log" role="log" aria-live="polite"></div><div class="chat__chips"></div>' +
     '<form class="chat__form"><label class="sr-only" for="chat-in">Your question</label><input id="chat-in" autocomplete="off" placeholder="Ask about services, security, results"><button type="submit">Send</button></form></section>';
   document.body.appendChild(wrap);
