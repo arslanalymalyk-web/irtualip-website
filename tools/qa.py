@@ -1,9 +1,10 @@
-import asyncio, re, sys, subprocess, time
+import asyncio, re, sys, subprocess, time, tempfile, shutil
 from pathlib import Path
 from playwright.async_api import async_playwright
 
-SITE = Path("/home/claude/virtualip")
-SHOTS = Path("/home/claude/work/shots"); SHOTS.mkdir(parents=True, exist_ok=True)
+SITE = Path(__file__).resolve().parent.parent
+SHOTS = Path(tempfile.gettempdir()) / "virtualip-shots"; SHOTS.mkdir(parents=True, exist_ok=True)
+CHROME = shutil.which("google-chrome") or shutil.which("chromium") or shutil.which("chromium-browser")
 BASE = "http://127.0.0.1:8123/"
 server = subprocess.Popen([sys.executable, "-m", "http.server", "8123", "--bind", "127.0.0.1", "-d", str(SITE)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 time.sleep(1)
@@ -13,7 +14,7 @@ pages = sorted(p.name for p in SITE.glob("*.html"))
 async def main():
     problems = []
     async with async_playwright() as p:
-        b = await p.chromium.launch(executable_path="/usr/bin/google-chrome", args=["--no-sandbox", "--autoplay-policy=no-user-gesture-required"])
+        b = await p.chromium.launch(executable_path=CHROME, args=["--no-sandbox", "--autoplay-policy=no-user-gesture-required"])
         # --- per-page console / network / link checks (desktop)
         ctx = await b.new_context(viewport={"width": 1440, "height": 900})
         for name in pages:

@@ -108,6 +108,19 @@
     }, { passive: true });
     document.addEventListener("pointerleave", function () { ring.classList.remove("is-on"); });
 
+    /* Spotlight cards: a soft glow follows the cursor. Adapted from React Bits SpotlightCard
+       (c) David Haz, MIT + Commons Clause, https://github.com/DavidHDev/react-bits */
+    document.querySelectorAll(".card, .why-card, .industry, .cred-tile, .case").forEach(function (el) {
+      el.classList.add("spot");
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--sx", (e.clientX - r.left).toFixed(0) + "px");
+        el.style.setProperty("--sy", (e.clientY - r.top).toFixed(0) + "px");
+      });
+      el.addEventListener("pointerenter", function () { el.style.setProperty("--so", "1"); });
+      el.addEventListener("pointerleave", function () { el.style.setProperty("--so", "0"); });
+    });
+
     document.querySelectorAll(".btn:not(.btn--sm)").forEach(function (btn) {
       btn.addEventListener("pointermove", function (e) {
         var r = btn.getBoundingClientRect();

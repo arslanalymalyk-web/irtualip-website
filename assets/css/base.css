@@ -97,4 +97,5 @@ body.has-hero .site-header.is-scrolled .nav__link:hover, body.has-hero .site-hea
 .footer__bottom { margin-top: var(--s-8); padding-top: var(--s-5); border-top: 1px solid rgba(241, 238, 232, 0.14); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-3) var(--s-6); font-size: 0.9rem; color: #8ea398; }
 .footer__bottom ul { display: flex; gap: var(--s-5); flex-wrap: wrap; }
 @media (max-width: 60rem) { .footer__grid { grid-template-columns: 1fr 1fr; } .footer__brand { grid-column: 1 / -1; } .site-footer a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; } .footer__col li + li { margin-top: 0; } }
+@media (max-width: 32rem) { .footer__grid > .footer__col:nth-child(2) { grid-column: 1 / -1; } }
 

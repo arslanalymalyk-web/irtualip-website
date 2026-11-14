@@ -36,6 +36,7 @@ def stats_block():
     return """<section class="section on-dark has-rings" aria-labelledby="stats-title"><div class="container">
   <div class="stats-intro"><h2 id="stats-title">More than seventeen years of building systems that stay up.</h2>
     <a class="btn btn--ghost" href="about.html">How we work</a></div>
+  <p class="stats-note"><span class="sample-badge">Sample content</span> Placeholder figures for the preview. Replace them with verified numbers before launch.</p>
   <div class="stats">
     <div class="stat"><p class="stat__num"><span data-count="17">17</span><small>+</small></p><p class="stat__label">Years building digital solutions</p></div>
     <div class="stat"><p class="stat__num"><span data-count="800">800</span><small>+</small></p><p class="stat__label">Engineers and specialists</p></div>
@@ -114,7 +115,7 @@ def build_home():
         ("Why should I consider moving to the cloud?", "<p>Common reasons are scalability, resilience, faster delivery and paying for what you use. It also makes AI services easier to adopt.</p><p>Not every workload belongs in the cloud, so we assess each one on its merits.</p>"),
         ("How long does cloud migration take?", "<p>It depends on how many applications you have, how tangled their dependencies are and how much you want to change along the way. We size it after an assessment instead of quoting a number up front.</p>"),
         ("How does cloud migration affect data security?", "<p>Done well, it improves it. Encryption, identity controls, logging and automated compliance checks are easier to apply consistently.</p><p>The risk sits in the move itself, so we plan access, data handling and rollback before anything shifts.</p>"),
-        ("How do you protect our data when building AI?", "<p>Security is part of design, build and deployment. We work under ISO 27001 and SOC 2 Type II controls, and we agree how your data is accessed, stored and used before work begins.</p>"),
+        ("How do you protect our data when building AI?", "<p><span class='sample-badge'>Sample content</span> Security is part of design, build and deployment. We work under ISO 27001 and SOC 2 Type II controls, and we agree how your data is accessed, stored and used before work begins.</p>"),
         ("What happens after launch?", "<p>We can provide managed support and monitoring, or hand the system over to your team with documentation and training. We agree which at the start, so there are no surprises.</p>")]
     faq_h = "".join(f'<details><summary>{q}</summary><div class="faq__a">{a}</div></details>' for q, a in faqs)
 
@@ -149,7 +150,7 @@ def build_home():
   <div class="container hero__body"><h1 id="hero-title">{h1}</h1>
     <p class="hero__sub">We design, build and run enterprise AI that fits your data, your rules and your people.</p>
     <div class="hero__actions"><a class="btn" href="contact.html#contact-form">Plan your AI roadmap</a><a class="btn btn--ghost" href="#readiness">Take the 2-minute readiness check</a></div></div>
-  <div class="hero__proof"><div class="container hero__proof-inner"><p class="hero__proof-title">Certified and partnered</p>{marquee(CERTS)}</div></div>
+  <div class="hero__proof"><div class="container hero__proof-inner"><p class="hero__proof-title">Certified and partnered <span class="sample-badge">Sample</span></p>{marquee(CERTS)}</div></div>
 </section>
 
 <section class="section" id="services" aria-labelledby="services-title"><div class="container">
@@ -199,7 +200,7 @@ def build_home():
 </div></div></section>
 
 <section class="section" aria-labelledby="creds-title"><div class="container">
-  <div class="section-head"><h2 id="creds-title">Proof your security team can check.</h2><p class="lede">Independent certifications and partnerships back how we build, secure and deliver.</p></div>{trust}</div></section>
+  <div class="section-head"><h2 id="creds-title">Proof your security team can check.</h2><p class="lede"><span class="sample-badge">Sample content</span> Placeholder credentials for the preview. Replace them with verified certifications and partnerships before launch.</p></div>{trust}</div></section>
 
 <section class="section section--alt" aria-labelledby="faq-title"><div class="container">
   <div class="section-head"><h2 id="faq-title">Questions buyers ask first.</h2></div><div class="faq">{faq_h}</div></div></section>
@@ -289,7 +290,7 @@ def build_about():
 {page_head('We build the systems behind your decisions.', 'Virtual IP is a technology partner for teams that need AI, cloud and software to work in the real world, not only in a demo.', 'About', 'about')}
 <section class="section"><div class="container split">
   <h2>Practical execution, measurable impact, long-term reliability.</h2>
-  <div class="prose"><p>For more than seventeen years we have built digital systems for organizations in fintech, healthcare, logistics and beyond. Today more than 800 engineers and specialists work across four global delivery hubs.</p>
+  <div class="prose"><p><span class="sample-badge">Sample content</span> The figures and credentials on this page are placeholders until verified.</p><p>For more than seventeen years we have built digital systems for organizations in fintech, healthcare, logistics and beyond. Today more than 800 engineers and specialists work across four global delivery hubs.</p>
     <p><strong>We focus on what ships.</strong> That means clear scope, short cycles, honest trade-offs and security from the first design decision. It also means staying involved after launch, which is part of why 73% of clients stay with us.</p>
     <p>We're an ISO 27001 certified, SOC 2 Type II audited partner of AWS, Microsoft and Google Cloud, and a member of the Forbes Technology Council.</p></div></div></section>
 {stats_block()}

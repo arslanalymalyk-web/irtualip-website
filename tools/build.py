@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Static page generator for the Virtual IP site. Output is plain HTML/CSS/JS in /home/claude/virtualip."""
+"""Static page generator for the Virtual IP site. Output is plain HTML/CSS/JS at the repo root."""
 from pathlib import Path
 from html import escape
 
-OUT = Path("/home/claude/virtualip")
+OUT = Path(__file__).resolve().parent.parent
 SITE = "https://virtualipus.com"
 EMAIL = "contact@virtualip.com"
 LINKEDIN = "https://www.linkedin.com/company/virtualip"

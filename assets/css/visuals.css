@@ -224,7 +224,7 @@
 .post__tag { display: none; }
 .post__meta { display: grid; gap: 0.35rem; }
 .post__kicker { font-weight: 700; color: var(--ink-2); font-size: 0.9rem; }
-@media (max-width: 52rem) { .post { grid-template-columns: 1fr; } .post-cover { max-width: 14rem; } }
+@media (max-width: 52rem) { .post { grid-template-columns: 1fr; } .post-cover { max-width: 14rem; } .post-cover--lg { max-width: none; aspect-ratio: 16 / 9; } }
 .role { grid-template-columns: auto 1.4fr 1fr auto; }
 @media (max-width: 52rem) { .role { grid-template-columns: auto 1fr; } .role .role__meta, .role .btn { grid-column: 2; } }
 
@@ -277,3 +277,7 @@
 .btn--sm { min-height: 2.75rem; }
 .btn, .ftab, summary, .theme-toggle, .quiz__option label, [role="tab"] { cursor: pointer; }
 .ftab { min-height: 2.75rem; }
+
+/* Spotlight cards (added by main.js on fine pointers, motion allowed) */
+.spot { position: relative; isolation: isolate; }
+.spot::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1; opacity: var(--so, 0); transition: opacity 0.3s; background: radial-gradient(240px circle at var(--sx, 50%) var(--sy, 50%), color-mix(in srgb, var(--marigold-400) 20%, transparent), transparent 70%); }
