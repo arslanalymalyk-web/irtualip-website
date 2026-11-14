@@ -311,3 +311,7 @@
 .result__top .result__tag { margin: 0; }
 .result__metric { font-family: var(--font-display); font-weight: 800; font-size: var(--step-4, 2.6rem); line-height: 1; letter-spacing: -0.03em; color: var(--accent-text, var(--accent)); margin-bottom: var(--s-3); }
 .result .spark { margin-top: var(--s-4); color: var(--accent-text, var(--accent)); opacity: .8; }
+
+.partner-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: var(--s-6); }
+.partner-row li { display: inline-flex; align-items: center; gap: .55rem; min-height: 44px; padding: .5rem 1.1rem; border: 1px solid var(--line-strong); border-radius: 999px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; background: var(--surface); }
+.partner-row svg { color: var(--accent-text, var(--accent)); flex: none; }

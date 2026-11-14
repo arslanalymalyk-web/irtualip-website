@@ -203,7 +203,8 @@ def build_home():
 </div></div></section>
 
 <section class="section" aria-labelledby="creds-title"><div class="container">
-  <div class="section-head"><h2 id="creds-title">Proof your security team can check.</h2><p class="lede">Certifications and partnerships you can verify with us.</p></div>{trust}</div></section>
+  <div class="section-head"><h2 id="creds-title">Proof your security team can check.</h2><p class="lede">Certifications and partnerships you can verify with us.</p></div>{trust}
+  <ul class="partner-row" aria-label="Technology partners">{"".join(f"<li>{V.icon('check', 18)}<span>{n}</span></li>" for n in PARTNERS)}</ul></div></section>
 
 <section class="section section--alt" aria-labelledby="faq-title"><div class="container">
   <div class="section-head"><h2 id="faq-title">Questions buyers ask first.</h2></div><div class="faq">{faq_h}</div></div></section>
@@ -279,6 +280,7 @@ def build_cases():
 
 
 # =============================================================== ABOUT
+PARTNERS = ["OpenAI", "Anthropic", "AWS", "Microsoft", "Google Cloud", "Salesforce", "ISO 27001", "SOC 2 Type II"]
 CLIENTS = ["Canvs", "Live More", "Signal", "Knowles", "Groupon", "Sterne", "ABB", "Pendulum", "Crowd Biotic", "Adventise Risk", "Lumatax", "Sway", "Southern Biologics", "Oserison", "Union Marlee", "Futureprenure", "BBJ", "Centereys", "Profitoptics"]
 
 
