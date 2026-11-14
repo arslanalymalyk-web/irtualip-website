@@ -337,3 +337,31 @@
 .chat__form input { flex: 1; min-width: 0; min-height: 44px; padding: 0 .8rem; border: 1px solid var(--line-strong); border-radius: .75rem; background: var(--surface); color: inherit; font: inherit; }
 .chat__form button { min-height: 44px; padding: 0 1rem; border: 0; border-radius: .75rem; background: var(--accent); color: var(--accent-ink); font: 700 .95rem inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { .chat__fab { transition: none; } }
+
+/* ---------- About: client chips, fact panels, 3-col teams ---------- */
+.client-names { gap: .7rem; }
+.client-names li.client { display: inline-flex; align-items: center; gap: .6rem; padding: .4rem 1.1rem .4rem .4rem; background: var(--surface, #fff); box-shadow: 0 1px 2px rgba(10, 19, 48, .06); }
+.mono { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; font-style: normal; font-weight: 800; font-size: .78rem; letter-spacing: .02em; }
+.mono--gold { background: #2457e0; color: #fff; }
+.mono--blush { background: var(--blush-300, #dbe5ff); color: var(--ink); }
+.mono--mint { background: var(--mint-300, #cfe0ff); color: var(--ink); }
+.split__lead { display: grid; gap: var(--s-6); align-content: start; }
+.fact-panel { padding: var(--s-5); display: grid; gap: var(--s-5); }
+.fact-panel__row { display: grid; grid-template-columns: auto 1fr; gap: var(--s-5); align-items: center; }
+.fact-panel p { color: var(--ink-2); margin: 0; }
+.fact-panel__cap { font-size: .95rem; }
+.fact-panel__chart svg { width: 100%; height: auto; display: block; color: var(--accent, #2f6bff); margin-bottom: var(--s-3); }
+.stat-ring { position: relative; width: 132px; height: 132px; color: var(--accent, #2f6bff); }
+.stat-ring .donut { display: block; }
+.stat-ring strong { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.7rem; color: var(--ink); }
+.fact-panel .d-box, .fact-panel svg { max-width: 100%; }
+.team--3 { grid-template-columns: repeat(3, 1fr); }
+.person--team { padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-lg, 20px); background: var(--surface, #fff); gap: var(--s-3); }
+.person--team .mini { width: 100%; max-width: 14rem; height: auto; margin-top: var(--s-2); color: var(--ink-2); }
+@media (max-width: 62rem) { .team--3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 40rem) { .team--3 { grid-template-columns: 1fr; } }
+
+.case__scene { margin: var(--s-5) 0 var(--s-4); border-radius: 18px; overflow: hidden; flex: 1 1 auto; display: flex; }
+.case__scene svg { display: block; width: 100%; height: 100%; min-height: 12rem; object-fit: cover; }
+
+.person--team h2 { font-size: var(--step-1); letter-spacing: -0.015em; line-height: 1.2; }

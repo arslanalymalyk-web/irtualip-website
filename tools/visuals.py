@@ -89,6 +89,10 @@ def mini(kind):
         h += ('<path d="M30 88a80 80 0 11160 0" class="m-line" stroke="currentColor" stroke-width="10" stroke-linecap="round" opacity=".14"/>'
               f'<path class="m-draw" d="M30 88a80 80 0 0176-80" stroke="{GOLD}" stroke-width="10" stroke-linecap="round"/>'
               f'<path d="M110 88l36-34" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="110" cy="88" r="8" fill="currentColor"/>')
+    elif kind == "ai":
+        h += ('<g class="m-line" stroke="currentColor" stroke-width="1.5" opacity=".55"><path d="M34 28L88 55M34 82L88 55M88 55L146 30M88 55L146 84M146 30L192 55M146 84L192 55"/></g>'
+              '<g class="m-fill"><circle cx="34" cy="28" r="10"/><circle cx="34" cy="82" r="10"/><circle cx="146" cy="30" r="10"/><circle cx="146" cy="84" r="10"/></g>'
+              f'<circle cx="88" cy="55" r="15" fill="{GOLD}"/><circle cx="192" cy="55" r="12" fill="currentColor"/>')
     h += '</svg>'
     return h
 
@@ -271,3 +275,24 @@ def mock_pipeline():
     body = (f'<ol class="stages">{s}</ol><div class="mock-cost"><div class="mock-chart"><div class="mock__head"><strong>Deployments per week</strong><span>last 12 weeks</span></div>'
             f'{bars([2,2,3,3,4,5,5,6,7,8,8,9], 520, 130, 11)}</div><div class="mock-donut"><strong>Latest releases</strong><ul class="runs"><li><span class="pill pill--lo">Passed</span> v4.12.0</li><li><span class="pill pill--lo">Passed</span> v4.11.3</li><li><span class="pill pill--mid">Rolled back</span> v4.11.2</li><li><span class="pill pill--lo">Passed</span> v4.11.1</li></ul></div></div>')
     return _win("delivery / pipeline", body)
+
+
+
+# ------------------------------------------------------------------ about-page visuals
+_MONO = ["gold", "blush", "mint"]
+
+
+def monogram(name, i):
+    ini = "".join(w[0] for w in name.replace("&", " ").split()[:2]).upper()
+    return f'<li class="client"><i class="mono mono--{_MONO[i % 3]}" aria-hidden="true">{ini}</i>{name}</li>'
+
+
+def fact_panel():
+    ring = (f'<div class="stat-ring">{donut([73, 27], 132)}<strong>73%</strong></div>')
+    vals = [8, 12, 15, 20, 26, 33, 41, 50, 58, 66, 74, 80, 86, 90, 94, 96, 98, 100]
+    return (f'<div class="fact-panel card" data-reveal><div class="fact-panel__row">{ring}<p><strong>73% of clients return</strong> for long-term partnerships.</p></div>'
+            f'<div class="fact-panel__chart">{bars(vals, 360, 96, len(vals) - 1)}<p><strong>18 years</strong> in business, and 10+ launching and building AI products.</p></div></div>')
+
+
+def ai_first_panel():
+    return (f'<div class="fact-panel card" data-reveal>{arch_diagram()}<p class="fact-panel__cap">How AI connects to the systems you already run: governed data in, a tested model, a decision a person can review.</p></div>')

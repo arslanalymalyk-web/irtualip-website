@@ -126,7 +126,7 @@ def build_home():
                 f'<p class="case__metric">{metric}</p><h3>{title}</h3>{p}{ba}</a>')
 
     cases = (case_card("case--lead", "supreme-lending", "Financial services", "2&times;", "Scaled lending capacity without adding headcount",
-                       V.before_after(1, 2, "Lending capacity", unit="x"))
+                       V.before_after(1, 2, "Lending capacity", unit="x"), '<div class="case__scene" aria-hidden="true">' + V.scene("fintech") + "</div>")
              + case_card("", "fintua", "Financial services", "~50%", "Lower AWS infrastructure costs while scaling tax compliance automation across 25+ European jurisdictions", V.before_after(100, 50, "AWS cost (index)"))
              + case_card("", "canvs-ai", "SaaS &amp; technology", "10&times;", "OpenAI-powered analytics: 10&times; scalability and 6&times; faster insights", V.before_after(1, 10, "Scalability", unit="x")))
 
@@ -142,7 +142,7 @@ def build_home():
     <svg class="i-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
     <svg class="i-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>
     <span class="media-toggle__label">Pause background motion</span></button>
-  <aside class="hero__trace" aria-hidden="true"><div class="hero__trace-head">Decision trace <span>Illustrative</span></div>
+  <aside class="hero__trace" aria-hidden="true"><div class="hero__trace-head">Decision trace <span>Example</span></div>
     <dl><div><dt>Signals read</dt><dd data-count="1284">1,284</dd></div><div><dt>Confidence</dt><dd>0.93</dd></div>
     <div><dt>Route</dt><dd>Senior adjuster</dd></div><div><dt>Top factor</dt><dd><span class="meter"><i style="--w:82%"></i></span></dd></div></dl>
     <span class="hero__trace-foot">A person reviews this</span></aside>
@@ -159,10 +159,10 @@ def build_home():
 </div></section>
 
 <section class="section section--alt bg-dots" id="work" aria-labelledby="work-t"><div class="container showcase" data-tabs>
-  <div class="showcase__intro"><h2 id="work-t">See the work behind the pitch.</h2>
+  <div class="showcase__intro"><h2 id="work-t">What we build.</h2>
     <p class="lede">Three kinds of interface we build for clients, drawn here as illustrations.</p>
     <div class="ftabs" role="tablist" aria-label="Product examples" aria-orientation="vertical">{tabbtn}</div></div>
-  <div class="showcase__stage" data-parallax="0.02">{panels}<p class="note">Illustrative interfaces with sample data. They are not client screenshots.</p></div>
+  <div class="showcase__stage" data-parallax="0.02">{panels}</div>
 </div></section>
 
 {stats_block()}
@@ -294,14 +294,14 @@ def build_about():
     html += f"""<main id="main">
 {page_head('We build the systems behind your decisions.', 'Virtual IP is a technology partner for teams that need AI, cloud and software to work in the real world, not only in a demo.', 'About', 'about')}
 <section class="section"><div class="container split">
-  <h2>Practical execution, measurable impact, long-term reliability.</h2>
+  <div class="split__lead"><h2>Practical execution, measurable impact, long-term reliability.</h2>{V.fact_panel()}</div>
   <div class="prose"><p>We&rsquo;re an AI-first engineering partner helping organizations design, build and scale intelligent systems that deliver lasting business value.</p>
     <p>Virtual IP was founded with a simple belief. As digital systems grew more interconnected and data-driven, organizations needed more than individual solutions. They needed platforms and operating models that could evolve.</p>
     <p><strong>Our mission</strong> is to help leaders build systems that last. For over eighteen years we have partnered with enterprises, SMBs and product-led businesses to solve complex challenges through software engineering, and 73% of our clients return for long-term partnerships.</p>
     <p>Our partnerships with OpenAI and Anthropic help us deliver production-ready AI solutions, alongside our work with AWS, Microsoft and Salesforce.</p></div></div></section>
 <section class="section section--alt" aria-labelledby="trust-by"><div class="container"><div class="section-head"><h2 id="trust-by">Trusted by hundreds of organizations.</h2></div>
-  <ul class="client-names">{"".join(f"<li>{n}</li>" for n in CLIENTS)}</ul></div></section>
-<section class="section" aria-labelledby="ai-first"><div class="container split"><h2 id="ai-first">AI-first, built with responsibility.</h2>
+  <ul class="client-names">{"".join(V.monogram(n, i) for i, n in enumerate(CLIENTS))}</ul></div></section>
+<section class="section" aria-labelledby="ai-first"><div class="container split"><div class="split__lead"><h2 id="ai-first">AI-first, built with responsibility.</h2>{V.ai_first_panel()}</div>
   <div class="prose"><p>Being AI-first does not mean adding AI everywhere. It means applying intelligence where it improves decisions, reduces friction and strengthens systems over time.</p>
     <p>We embed AI into products, platforms and operations in ways that are governed, secure and aligned to business readiness, from early strategy and validation to production grade. Our role is to help organizations get the balance right.</p></div></div></section>
 {stats_block()}
@@ -355,15 +355,17 @@ def build_insights():
 
 # =============================================================== TEAM / CAREERS / CONTACT
 def build_team():
-    people = [("Alex Morgan", "AM", "Chief Executive Officer", "Sets direction and keeps delivery honest."), ("Sam Rivera", "SR", "Chief Technology Officer", "Owns architecture and engineering standards."),
-              ("Priya Nair", "PN", "Head of AI", "Leads machine learning and data engineering."), ("Chris Okafor", "CO", "Head of Delivery", "Keeps projects on plan and on quality."),
-              ("Dana Whitfield", "DW", "Head of Security", "Leads security design, audits and compliance."), ("Lee Tran", "LT", "Head of Cloud", "Leads cloud architecture and operations."),
-              ("Maya Haddad", "MH", "Head of Design", "Leads product and interface design."), ("Jordan Ellis", "JE", "Head of People", "Builds the teams that do the work.")]
-    cards = "".join(f'<li class="person">{V.avatar(i, n)}<h3>{n}</h3><p class="role-title">{r}</p><p>{bio}</p></li>' for i, (n, ini, r, bio) in enumerate(people))
-    html = head("Team | Virtual IP", "The leadership team behind Virtual IP.", "team.html") + header("about.html")
+    teams = [("ai", "gold", "AI and data", "Machine learning engineers, data engineers and analysts who take models from first prototype to production.", "ai"),
+             ("cloud", "blush", "Cloud and infrastructure", "Architects and DevOps engineers who build and run secure, scalable environments.", "cloud"),
+             ("app", "mint", "Product and application engineering", "Full-stack, mobile and SaaS engineers working with designers and product owners.", "app"),
+             ("shield", "gold", "Security and compliance", "Specialists in threat detection, audits and the controls behind ISO 27001 and SOC 2.", "security"),
+             ("pipeline", "blush", "Delivery and quality", "Delivery managers and QA engineers who keep work on plan, tested and traceable.", "gauge"),
+             ("people", "mint", "Design and research", "Product designers and researchers who start from real users and real workflows.", "blocks")]
+    cards = "".join(f'<li class="person person--team">{V.tile(i, t, 26)}<h2>{n}</h2><p>{d}</p>{V.mini(m)}</li>' for i, t, n, d, m in teams)
+    html = head("Teams | Virtual IP", "The teams behind Virtual IP: AI and data, cloud, application engineering, security, delivery and design.", "team.html") + header("about.html")
     html += f"""<main id="main">
-{page_head('The people doing the work.', 'Leaders who still review the work.', 'Team', 'team')}
-<section class="section--tight"><div class="container"><ul class="team" data-stagger>{cards}</ul></div></section>
+{page_head('The teams doing the work.', 'More than 800 engineers and specialists across four global delivery hubs, organised around the work you need.', 'Teams', 'team')}
+<section class="section--tight"><div class="container"><ul class="team team--3" data-stagger>{cards}</ul></div></section>
 {cta_band("Want to work with us?", "See open roles or tell us about your project.")}
 </main>
 """
