@@ -20,3 +20,11 @@ The scripts keep their mode flag and a statusline script copy in `~/.claude/`.
 ## Brand
 
 `brand/` holds the Virtual IP logo pack (SVG, PNG, favicon, social avatars, `brand-sheet.pdf`). The site itself still uses the earlier green and gold mark; the logo uses midnight #0A1330 and electric blue #2F6BFF. Generator scripts are in `brand/source/` (need `fonttools`, `brotli`, `pillow`, `rsvg-convert`).
+
+## Launch settings
+
+- **Contact form**: posts to `api/contact.js` (Vercel function) and sends through Resend. Set `RESEND_API_KEY` (required), `CONTACT_TO` and `CONTACT_FROM` (optional) in Vercel. Without a key the page falls back to the visitor's email app.
+- **Analytics and booking**: edit `assets/js/config.js`. Analytics stays off, with no banner, until a provider and id are set; once on, it loads only after the visitor accepts.
+- **Domain**: `SITE_URL=https://your-domain python3 tools/build2.py` rebuilds canonical URLs, sitemap and share tags.
+- **Checks**: `npm test` (links, anchors, ids, meta, JSON-LD, sitemap). CI also fails if built HTML is stale.
+- **Share image**: `PYTHONPATH=brand/source python3 brand/source/og.py` from `tools/`.

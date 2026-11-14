@@ -6,7 +6,8 @@ import shutil
 from html import escape
 
 OUT = Path(__file__).resolve().parent.parent
-SITE = "https://virtualipus.com"
+import os
+SITE = os.environ.get("SITE_URL", "https://virtualipus.com").rstrip("/")
 EMAIL = "contact@virtualip.com"
 LINKEDIN = "https://www.linkedin.com/company/virtualip"
 
@@ -30,6 +31,28 @@ THEME_INIT = ("(function(){var d=document.documentElement;d.classList.add('js');
               "try{var t=localStorage.getItem('vip-theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t)}catch(e){}})();")
 
 
+def ld_json(page, title, desc):
+    import json
+    url = f"{SITE}/" + ("" if page == "index.html" else page)
+    org = {"@type": "Organization", "@id": f"{SITE}/#org", "name": "Virtual IP", "url": f"{SITE}/",
+           "logo": f"{SITE}/assets/img/apple-touch-icon.png", "email": EMAIL, "sameAs": [LINKEDIN],
+           "description": "Enterprise AI, cloud, application development and cybersecurity services."}
+    graph = [org]
+    if page == "index.html":
+        graph.append({"@type": "WebSite", "@id": f"{SITE}/#site", "url": f"{SITE}/", "name": "Virtual IP", "publisher": {"@id": f"{SITE}/#org"}})
+    else:
+        graph.append({"@type": "WebPage", "url": url, "name": title, "description": desc, "isPartOf": {"@id": f"{SITE}/#site"}})
+        crumbs = [("Home", f"{SITE}/")]
+        if page.startswith("insights-"): crumbs.append(("Insights", f"{SITE}/insights.html"))
+        if page.startswith("service-"): crumbs.append(("Services", f"{SITE}/services.html"))
+        crumbs.append((title.split(" | ")[0], url))
+        graph.append({"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": u} for i, (n, u) in enumerate(crumbs)]})
+        if page.startswith("insights-"):
+            graph.append({"@type": "Article", "headline": title.split(" | ")[0], "description": desc, "mainEntityOfPage": url,
+                          "author": {"@id": f"{SITE}/#org"}, "publisher": {"@id": f"{SITE}/#org"}})
+    return '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+
+
 def head(title, desc, page, extra=""):
     t = escape(title)
     d = escape(desc)
@@ -46,7 +69,14 @@ def head(title, desc, page, extra=""):
 <meta property="og:title" content="{t}">
 <meta property="og:description" content="{d}">
 <meta property="og:url" content="{SITE}/{'' if page == 'index.html' else page}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="{SITE}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Virtual IP. Enterprise AI, cloud and software that holds up in production.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITE}/assets/img/og.png">
+<link rel="canonical" href="{SITE}/{'' if page == 'index.html' else page}">
+{ld_json(page, title, desc)}
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -73,7 +103,7 @@ def header(page, hero=False):
     <button class="menu-btn" type="button" data-menu-btn aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></button>
     <nav class="nav" id="site-nav" aria-label="Main">
       <ul class="nav__list">{items}</ul>
-      <a class="btn btn--sm nav__cta" href="contact.html#contact-form">Plan your AI roadmap</a>
+      <a class="btn btn--sm nav__cta" data-track="cta_roadmap" href="contact.html#contact-form">Plan your AI roadmap</a>
       <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme">
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></svg>
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -91,7 +121,7 @@ SERVICE_LINKS = [("ai-data", "AI & data"), ("cloud", "Cloud & infrastructure"), 
 
 
 def footer(scripts=""):
-    svc = "".join(f'<li><a href="services.html#{a}">{escape(b)}</a></li>' for a, b in SERVICE_LINKS)
+    svc = "".join(f'<li><a href="service-{a}.html">{escape(b)}</a></li>' for a, b in SERVICE_LINKS)
     return f"""<footer class="site-footer">
   <div class="container">
     <div class="footer__grid">
@@ -116,7 +146,9 @@ def footer(scripts=""):
     </div>
   </div>
 </footer>
+<script src="assets/js/config.js"></script>
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/consent.js" defer></script>
 <script src="assets/js/i18n.js" defer></script>
 <script src="assets/js/chat.js" defer></script>
 {scripts}</body>
@@ -682,7 +714,7 @@ def build_legal():
 <h2>Contact</h2><p>Questions about these terms: {EMAIL}.</p>"""),
         "cookies.html": ("Cookie policy", "What this website stores in your browser.", f"""
 {notice}<h2>What this site stores</h2><p>This site sets no cookies. It saves one preference in your browser's local storage: your light or dark theme choice, under the name <code>vip-theme</code>.</p>
-<h2>What it doesn't do</h2><ul><li>No analytics or advertising cookies.</li><li>No cross-site tracking.</li></ul>
+<h2>What it doesn't do</h2><ul><li>No advertising cookies, and no analytics unless you accept them in the consent banner (shown only if analytics is switched on).</li><li>No cross-site tracking.</li></ul>
 <h2>Clearing it</h2><p>Clear this site's data in your browser settings to remove the saved theme.</p>
 <h2>If this changes</h2><p>If analytics or other cookies are added, this page and a consent control will be updated first.</p>"""),
     }

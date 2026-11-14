@@ -1,6 +1,5 @@
-/* Contact form: accessible validation, quiz pre-fill, and a mailto hand-off.
-   NOTE: there is no server endpoint yet. To send directly, point `form.action`
-   at a form service or API and replace the mailto block with a fetch() POST. */
+/* Contact form: accessible validation, quiz pre-fill, POST to /api/contact (see api/contact.js),
+   and a mailto hand-off if the endpoint is not configured or unreachable. */
 (function () {
   "use strict";
   var form = document.getElementById("contact-form");
@@ -57,11 +56,30 @@
     if (firstBad) { firstBad.focus(); return; }
     var v = function (n) { return form.elements[n] ? form.elements[n].value.trim() : ""; };
     var topicLabel = form.elements["topic"].selectedOptions[0].textContent;
-    var subject = "Enquiry: " + topicLabel + (v("company") ? " (" + v("company") + ")" : "");
-    var body = v("message") + "\n\n— " + v("name") + (v("company") ? ", " + v("company") : "") + "\n" + v("email");
-    status.hidden = false;
-    status.textContent = "Thanks, " + v("name").split(" ")[0] + ". Your email app should open with the message ready to send. If it doesn't, write to " + TO + ".";
-    status.focus();
-    window.location.href = "mailto:" + TO + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    var first = v("name").split(" ")[0];
+    var btn = form.querySelector("button[type=submit]"); btn.disabled = true;
+    function done(msg) { btn.disabled = false; status.hidden = false; status.textContent = msg; status.focus(); }
+    function viaMail() {
+      var subject = "Enquiry: " + topicLabel + (v("company") ? " (" + v("company") + ")" : "");
+      var body = v("message") + "\n\n— " + v("name") + (v("company") ? ", " + v("company") : "") + "\n" + v("email");
+      done("Thanks, " + first + ". Your email app should open with the message ready to send. If it doesn't, write to " + TO + ".");
+      window.location.href = "mailto:" + TO + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    }
+    var payload = { name: v("name"), email: v("email"), company: v("company"), topic: form.elements["topic"].value, message: v("message"), website: v("website") };
+    var ctl = window.AbortController ? new AbortController() : null, t = setTimeout(function () { if (ctl) ctl.abort(); }, 10000);
+    fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: ctl ? ctl.signal : undefined })
+      .then(function (r) {
+        clearTimeout(t);
+        if (r.ok) { form.reset(); done("Thanks, " + first + ". Your message is with us, and a person will reply to " + payload.email + "."); if (window.VIP && VIP.track) VIP.track("contact_submit", { topic: payload.topic }); }
+        else if (r.status === 422 || r.status === 429) done(r.status === 429 ? "Too many messages from this connection. Please try again later or write to " + TO + "." : "Please check your details and try again.");
+        else viaMail();
+      })
+      .catch(function () { clearTimeout(t); viaMail(); });
   });
+})();
+
+(function () {
+  var url = (window.VIP_CONFIG || {}).booking, box = document.querySelector("[data-booking]");
+  if (!box || !url) return;
+  var a = box.querySelector("a"); a.href = url; box.classList.add("is-on");
 })();

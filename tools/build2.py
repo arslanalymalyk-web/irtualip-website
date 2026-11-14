@@ -132,7 +132,7 @@ def build_home():
 
     html = head("Virtual IP | Enterprise AI, cloud and software that holds up in production",
                 "Virtual IP designs, builds and runs enterprise AI, cloud, application and security systems that fit your data, your rules and your people.",
-                "index.html", f'<script type="application/ld+json">{org}</script>\n')
+                "index.html")
     html += header("index.html", hero=True)
     html += f"""<main id="main">
 <section class="hero" data-hero aria-labelledby="hero-title">
@@ -412,10 +412,12 @@ def build_contact():
         <option value="ai-roadmap">Plan an AI roadmap</option><option value="cloud">Cloud and infrastructure</option><option value="software">Software development</option>
         <option value="security">Cybersecurity</option><option value="support">Support and managed services</option><option value="careers">Careers</option><option value="other">Something else</option></select></div></div>
     <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" required></textarea></div>
+    <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
     <div><button class="btn" type="submit">Send message</button></div>
     <p class="form__status" id="form-status" role="status" tabindex="-1" hidden></p></form>
   <aside class="contact__side" aria-label="Other ways to reach us">
     <div class="card" style="padding:var(--s-5)">{V.tile("check", "gold")}<h2 style="margin-top:var(--s-3)">What happens next</h2><ol><li>A person reads your message.</li><li>We reply to the email you give us.</li><li>If it's a fit, we set up a working session.</li></ol></div>
+    <div class="card booking" data-booking style="padding:var(--s-5)">{V.tile("target", "mint")}<h2 style="margin-top:var(--s-3)">Prefer a call?</h2><p>Pick a time that suits you.</p><a class="btn btn--sm" href="#" rel="noopener" target="_blank" data-track="book_call">Book a call<span class="sr-only"> (opens in a new tab)</span></a></div>
     <div class="card" style="padding:var(--s-5)">{V.tile("mail", "blush")}<h2 style="margin-top:var(--s-3)">Prefer to write directly?</h2><p><a href="mailto:{EMAIL}">{EMAIL}</a></p><p><a href="{LINKEDIN}" rel="noopener" target="_blank">Virtual IP on LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></p></div>
   </aside></div></section>
 </main>
@@ -431,4 +433,5 @@ if __name__ == "__main__":
     # legal pages: rebuild through build.py with the visual head/footer wired in
     b.head, b.footer = head, footer
     b.build_legal()
+    import build3; build3.run()
     print("built", len(list(OUT.glob("*.html"))), "pages")

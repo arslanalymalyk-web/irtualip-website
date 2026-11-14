@@ -1,0 +1,20 @@
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request:
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Build is up to date
+        run: |
+          python3 tools/build2.py
+          git diff --exit-code -- '*.html' sitemap.xml robots.txt || (echo "Built files are stale. Run python3 tools/build2.py and commit." && exit 1)
+      - name: Site checks
+        run: python3 tools/check.py
+      - name: Node syntax check
+        run: |
+          for f in assets/js/*.js api/*.js; do node --check "$f"; done
