@@ -16,3 +16,7 @@ Claude Code hooks in `.claude/settings.json` load Ponytail's "lazy senior dev" m
 Not included: the task-board band and webhook ledger. Those ship only with the plugin (`/plugin install ponytail@ponytail`, marketplace already registered). Do not install the plugin too, or the hooks run twice.
 
 The scripts keep their mode flag and a statusline script copy in `~/.claude/`.
+
+## Brand
+
+`brand/` holds the Virtual IP logo pack (SVG, PNG, favicon, social avatars, `brand-sheet.pdf`). The site itself still uses the earlier green and gold mark; the logo uses midnight #0A1330 and electric blue #2F6BFF. Generator scripts are in `brand/source/` (need `fonttools`, `brotli`, `pillow`, `rsvg-convert`).
