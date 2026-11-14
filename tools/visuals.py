@@ -57,7 +57,7 @@ def arch_diagram():
     for label, y in srcs:
         s.append(f'<rect x="8" y="{y}" width="104" height="44" rx="12" class="d-box"/><text x="60" y="{y+27}" text-anchor="middle" class="d-t">{label}</text>')
     s.append('<rect x="156" y="68" width="100" height="114" rx="16" class="d-box"/><text x="206" y="112" text-anchor="middle" class="d-t d-b">Governed</text><text x="206" y="130" text-anchor="middle" class="d-t d-b">pipeline</text><text x="206" y="154" text-anchor="middle" class="d-s">clean · secure</text>')
-    s.append(f'<rect x="298" y="68" width="100" height="114" rx="16" fill="{GOLD}"/><text x="348" y="112" text-anchor="middle" class="d-t d-b" fill="{FOREST}">Model</text><text x="348" y="130" text-anchor="middle" class="d-t d-b" fill="{FOREST}">+ rules</text><text x="348" y="154" text-anchor="middle" class="d-s" fill="{FOREST}">tested on baseline</text>')
+    s.append(f'<rect x="298" y="68" width="100" height="114" rx="16" fill="{GOLD}"/><text x="348" y="112" text-anchor="middle" class="d-t d-b" style="fill:{FOREST}">Model</text><text x="348" y="130" text-anchor="middle" class="d-t d-b" style="fill:{FOREST}">+ rules</text><text x="348" y="154" text-anchor="middle" class="d-s" style="fill:{FOREST}">tested on baseline</text>')
     s.append('<rect x="440" y="52" width="92" height="146" rx="16" class="d-box d-strong"/><text x="486" y="100" text-anchor="middle" class="d-t d-b">Decision</text><text x="486" y="120" text-anchor="middle" class="d-s">+ reason</text><text x="486" y="150" text-anchor="middle" class="d-s">a person can</text><text x="486" y="164" text-anchor="middle" class="d-s">review it</text>')
     s.append('</svg>')
     return "".join(s)
