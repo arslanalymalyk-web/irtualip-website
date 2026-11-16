@@ -60,7 +60,7 @@ def arch_diagram():
     s.append(f'<rect x="298" y="68" width="100" height="114" rx="16" fill="{GOLD}"/><text x="348" y="112" text-anchor="middle" class="d-t d-b" style="fill:{FOREST}">Model</text><text x="348" y="130" text-anchor="middle" class="d-t d-b" style="fill:{FOREST}">+ rules</text><text x="348" y="154" text-anchor="middle" class="d-s" style="fill:{FOREST}">tested on baseline</text>')
     s.append('<rect x="440" y="52" width="92" height="146" rx="16" class="d-box d-strong"/><text x="486" y="100" text-anchor="middle" class="d-t d-b">Decision</text><text x="486" y="120" text-anchor="middle" class="d-s">+ reason</text><text x="486" y="150" text-anchor="middle" class="d-s">a person can</text><text x="486" y="164" text-anchor="middle" class="d-s">review it</text>')
     s.append('</svg>')
-    return "".join(s)
+    return '<div class="diagram-scroll">' + "".join(s) + '</div>'
 
 
 # ------------------------------------------------------------------ mini illustrations for bento tiles
@@ -203,6 +203,13 @@ _ART = {
     "insights": [("doc", 12, 12, "gold"), ("eye", 66, 10, "blush"), ("ai", 74, 58, "mint"), ("map", 8, 62, "blush")],
     "careers": [("briefcase", 12, 12, "gold"), ("people", 66, 8, "blush"), ("blocks", 74, 58, "mint"), ("bolt", 8, 62, "blush")],
     "team": [("people", 12, 12, "gold"), ("ai", 66, 8, "blush"), ("shield", 74, 58, "mint"), ("cloud", 8, 62, "blush")],
+    "svc-ai-data": [("ai", 12, 14, "gold"), ("data", 66, 8, "blush"), ("bolt", 74, 58, "mint"), ("target", 8, 62, "blush")],
+    "svc-cloud": [("cloud", 12, 14, "blush"), ("server", 66, 8, "gold"), ("shield", 74, 58, "mint"), ("gauge", 8, 62, "blush")],
+    "svc-apps": [("app", 12, 14, "mint"), ("blocks", 66, 8, "gold"), ("bolt", 74, 58, "blush"), ("people", 8, 62, "mint")],
+    "svc-security": [("shield", 12, 14, "gold"), ("eye", 66, 8, "blush"), ("check", 74, 58, "mint"), ("doc", 8, 62, "blush")],
+    "svc-implementation": [("blocks", 12, 14, "blush"), ("layers", 66, 8, "gold"), ("check", 74, 58, "mint"), ("globe", 8, 62, "blush")],
+    "svc-optimization": [("gauge", 12, 14, "mint"), ("bolt", 66, 8, "gold"), ("chart", 74, 58, "blush"), ("check", 8, 62, "mint")],
+    "svc-support": [("headset", 12, 14, "gold"), ("people", 66, 8, "blush"), ("pulse", 74, 58, "mint"), ("check", 8, 62, "blush")],
     "contact": [("mail", 12, 14, "gold"), ("headset", 66, 8, "blush"), ("globe", 74, 58, "mint"), ("check", 8, 62, "blush")],
 }
 

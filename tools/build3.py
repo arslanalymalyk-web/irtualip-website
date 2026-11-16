@@ -54,7 +54,7 @@ def service_pages():
         h = b2.head(f"{title} | Virtual IP", lead, page).replace("</head>", ld_svc + ld_faq + "\n</head>")
         h += b2.header("services.html")
         h += f"""<main id="main">
-{b2.page_head(escape(title), escape(lead), title)}
+{b2.page_head(escape(title), escape(lead), title, 'svc-' + pid)}
 <section class="section--tight"><div class="container">
   <div class="section-head"><h2>What we do</h2><p class="lede">Each item can be bought on its own or as part of a larger programme.</p></div>
   <div class="svc-grid">{it}</div></div></section>

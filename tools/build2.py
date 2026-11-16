@@ -364,7 +364,7 @@ def build_team():
     cards = "".join(f'<li class="person person--team">{V.tile(i, t, 26)}<h2>{n}</h2><p>{d}</p>{V.mini(m)}</li>' for i, t, n, d, m in teams)
     html = head("Teams | Virtual IP", "The teams behind Virtual IP: AI and data, cloud, application engineering, security, delivery and design.", "team.html") + header("about.html")
     html += f"""<main id="main">
-{page_head('The teams doing the work.', 'More than 800 engineers and specialists across four global delivery hubs, organised around the work you need.', 'Teams', 'team')}
+{page_head('The teams doing the work.', 'More than 800 professionals on board, organised around the work you need.', 'Teams', 'team')}
 <section class="section--tight"><div class="container"><ul class="team team--3" data-stagger>{cards}</ul></div></section>
 {cta_band("Want to work with us?", "See open roles or tell us about your project.")}
 </main>

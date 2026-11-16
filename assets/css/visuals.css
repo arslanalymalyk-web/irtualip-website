@@ -392,3 +392,7 @@ body.has-hero .site-header:not(.is-scrolled) .lang-select option { color: #0a133
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .booking { display: none; }
 .booking.is-on { display: block; }
+
+/* Keep the flow diagram legible on phones: scroll sideways instead of shrinking the labels. */
+.diagram-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 40rem) { .diagram-scroll .diagram { min-width: 30rem; } }
